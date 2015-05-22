@@ -1,37 +1,32 @@
-if (window.sessionStorage){
-    if (sessionStorage.consent == 'Y'){
-        $('.ce-trigger').remove();
-        var elem = $('.ce-elm');
-        elem.each(function(){
-            var s = $('<script type="text/javascript"></'+'script>');
-            for (var i = 0; i < this.attributes.length; i++) {
-                var attrib = this.attributes[i];
-                if (attrib.specified) {
-                    if (attrib.name != 'type'){
-                        s.attr(attrib.name, attrib.value);
-                    }
-                }
-            }
-            s.html(this.innerHTML);
-            $(document.body).append(s);
-        });
-    }
-}
-$('.ce-trigger').on('click', function(){
-    $(this).remove();
-    sessionStorage.setItem("consent", "Y");
-    var elem = $('.ce-elm');
-    elem.each(function(){
-        var s = $('<script type="text/javascript"></'+'script>');
-        for (var i = 0; i < this.attributes.length; i++) {
-            var attrib = this.attributes[i];
+var elem = document.getElementsByClassName('ce-elm'),
+    trigger = document.getElementsByClassName('ce-trigger'),
+    bar = document.getElementsByClassName('ce-bar');
+
+var getScripts = function(){
+    var n = elem.length;
+    for (var i = 0; i < n; i++){
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        for (var y = 0; y < elem[i].attributes.length; y++) {
+            var attrib = elem[i].attributes[y];
             if (attrib.specified) {
-                if (attrib.name != 'type'){
-                    s.attr(attrib.name, attrib.value);
+                if ((attrib.name != 'type') && (attrib.name != 'class')){
+                    console.log(attrib.name);
+                    s.setAttribute(attrib.name, attrib.value);
                 }
             }
         }
-        s.html(this.innerHTML);
-        $(document.body).append(s);
-    });
+        s.innerHTML = elem[i].innerHTML;
+        document.body.appendChild(s);
+    }
+    bar[0].style.display = 'none';
+}
+if (window.sessionStorage){
+    if (sessionStorage.consent == 'Y'){
+        getScripts();
+    }
+}
+trigger[0].addEventListener("click", function(){
+    sessionStorage.setItem("consent", "Y");
+    getScripts();
 });
