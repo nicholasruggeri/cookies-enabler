@@ -23,7 +23,7 @@ https://github.com/nicholasruggeri/cookies-enabler
 
 
 
-Step 1: capire quali script js installano cookie al caricamento della pagina (Google Analytics, Facebook Share, LinkedIn, Twitter ecc ecc ecc) ed aggiungere la classe “ce-elm” ai vari tag <script>;
+Step 1: capire quali script js installano cookie al caricamento della pagina (Google Analytics, Facebook Share, LinkedIn, Twitter ecc ecc ecc) ed aggiungere la classe “ce-elm” ai vari tag script;
 
 Step 2: sostituire/aggiungere type: “text/plain” al posto di “text/javascript”;
 
