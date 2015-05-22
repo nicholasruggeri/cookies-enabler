@@ -11,7 +11,6 @@ var getScripts = function(){
             var attrib = elem[i].attributes[y];
             if (attrib.specified) {
                 if ((attrib.name != 'type') && (attrib.name != 'class')){
-                    console.log(attrib.name);
                     s.setAttribute(attrib.name, attrib.value);
                 }
             }
