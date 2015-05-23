@@ -4,12 +4,20 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         var elem = options.element == null ? document.getElementsByClassName('ce-elm') : document.getElementsByClassName(options.element),
             trigger =  options.trigger == null ? document.getElementsByClassName('ce-trigger') : document.getElementsByClassName(options.trigger),
-            banner = options.banner == null ? document.getElementsByClassName('ce-banner') : document.getElementsByClassName(options.banner);
+            banner = options.banner == null ? document.getElementsByClassName('ce-banner') : document.getElementsByClassName(options.banner),
+            eventScroll = options.eventScroll == null ? false : options.eventScroll;
 
         if (window.sessionStorage){
             if (sessionStorage.consent == 'Y'){
                 getScripts(elem, trigger, banner);
             }
+        }
+
+        if (eventScroll === true) {
+            window.addEventListener('scroll', function(){
+                sessionStorage.setItem("consent", "Y");
+                getScripts(elem, trigger, banner);
+            });
         }
 
         trigger[0].addEventListener("click", function(){
