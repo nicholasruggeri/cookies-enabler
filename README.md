@@ -3,6 +3,19 @@
 ## soluzione per frontend developers.
 
 
+OPTIONS
+
+```
+COOKIES_ENABLER.init({
+    element: 'ce-elm', // Default ce-elm
+    trigger: 'ce-trigger', // Default ce-trigger
+    banner: 'ce-banner', // Default ce-banner
+    duration: '365', // Default 365 days
+    eventScroll: true // Default
+});
+```
+
+
 
 E’ successo tutto così velocemente.
 
