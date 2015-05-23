@@ -31,7 +31,7 @@ Step 3: inserite dove più preferite il banner (con classe “ce-bar” (di defa
 
 Step 4: inserite COOKIES_ENABLER.init(); prima della chiusura del body.
 
-### UPDATE: l'utente può scegliere le classi che preferisce inserendole nelle options dell'init,
+### UPDATE: l'utente può scegliere le classi che preferisce inserendole come opzioni dell'init.
 
 Cookies-enabler previene l’installazione dei cookie che vengono caricati via javascript dai vari scripts che si inseriscono per tracciare l’utente o per inserire elementi social (likebox facebook, twitter ecc).
 
