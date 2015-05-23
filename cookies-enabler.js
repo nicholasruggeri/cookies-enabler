@@ -16,6 +16,17 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             sessionStorage.setItem("consent", "Y");
             getScripts(elem, trigger, banner);
         });
+        
+        window.addEventListener('click', function(){
+        	sessionStorage.setItem("consent", "Y");
+      	    getScripts(elem, trigger, banner);
+        });
+
+        window.addEventListener('scroll', function(){
+    	    sessionStorage.setItem("consent", "Y");
+      	    getScripts(elem, trigger, banner);
+        });
+    
     };
 
     var getScripts = function(elem, trigger, banner){
