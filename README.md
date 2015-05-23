@@ -1,9 +1,7 @@
 # cookies-enabler
 
-## soluzione per frontend developers.
 
-
-OPTIONS
+### options
 
 ```
 COOKIES_ENABLER.init({
@@ -14,8 +12,6 @@ COOKIES_ENABLER.init({
     eventScroll: true // Default
 });
 ```
-
-
 
 E’ successo tutto così velocemente.
 
@@ -28,12 +24,10 @@ Nel mentre stanno nascendo plugin e servizi (anche a pagamento) per aiutare gli 
 Non servono.
 
 
-
 Bastano poche righe javascript.
 
 
 https://github.com/nicholasruggeri/cookies-enabler
-
 
 
 Step 1: capire quali script js installano cookie al caricamento della pagina (Google Analytics, Facebook Share, LinkedIn, Twitter ecc ecc ecc) ed aggiungere la classe “ce-elm” (di default) ai vari tag script;
@@ -56,5 +50,3 @@ Tanti saluti.
 
 
 N.
-
-DEMO: http://codepen.io/nruggeri/pen/GJjXov
