@@ -1,24 +1,27 @@
 window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
-    var elem = document.getElementsByClassName('ce-elm'),
-        trigger = document.getElementsByClassName('ce-trigger'),
-        bar = document.getElementsByClassName('ce-bar');
+    var init = function (options) {
 
-    var init = function () {
+        var elem = options.element == null ? document.getElementsByClassName('ce-elm') : document.getElementsByClassName(options.element),
+            trigger =  options.trigger == null ? document.getElementsByClassName('ce-trigger') : document.getElementsByClassName(options.trigger),
+            banner = options.banner == null ? document.getElementsByClassName('ce-banner') : document.getElementsByClassName(options.banner);
+
         if (window.sessionStorage){
             if (sessionStorage.consent == 'Y'){
-                getScripts();
+                getScripts(elem, trigger, banner);
             }
         }
 
         trigger[0].addEventListener("click", function(){
             sessionStorage.setItem("consent", "Y");
-            getScripts();
+            getScripts(elem, trigger, banner);
         });
     };
 
-    var getScripts = function(){
+    var getScripts = function(elem, trigger, banner){
+
         var n = elem.length;
+
         for (var i = 0; i < n; i++){
             var s = document.createElement('script');
             s.type = 'text/javascript';
@@ -33,7 +36,8 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             s.innerHTML = elem[i].innerHTML;
             document.body.appendChild(s);
         }
-        bar[0].style.display = 'none';
+
+        banner[0].style.display = 'none';
     }
 
     return {

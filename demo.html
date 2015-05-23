@@ -38,7 +38,7 @@
         }(document, 'script', 'facebook-jssdk'));
     </script>
 
-    <div class="ce-bar">
+    <div class="ce-banner">
         <a href="#" class="ce-trigger">Enable Cookies</a>
     </div>
     <br><br>
@@ -59,7 +59,11 @@
     </script>
     <script src="cookies-enabler.js"></script>
     <script>
-        COOKIES_ENABLER.init();
+        COOKIES_ENABLER.init({
+            element: 'ce-elm', // Default ce-elm
+            trigger: 'ce-trigger', // Default ce-trigger
+            banner: 'ce-banner', // Default ce-banner
+        });
     </script>
 </body>
 </html>
