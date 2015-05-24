@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
         }
-        .ce-bar{
+        .ce-banner{
             position: fixed;
             top: 0;
             left: 0;
@@ -18,7 +18,7 @@
             width: 100%;
             padding: .5em;
         }
-        .ce-bar .ce-trigger{
+        .ce-banner .ce-trigger{
             color: #232323;
             font-style: 1em;
             font-family: arial;
@@ -37,14 +37,7 @@
         fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
-
-    <div class="ce-banner">
-        <a href="#" class="ce-trigger">Enable Cookies</a>
-    </div>
-    <br><br>
     <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/plain" class="ce-elm">
         // GA Demo
         var _gaq = _gaq || [];
@@ -61,10 +54,11 @@
     <script>
         COOKIES_ENABLER.init({
             element: 'ce-elm', // Default ce-elm
-            trigger: 'ce-trigger', // Default ce-trigger
-            banner: 'ce-banner', // Default ce-banner
-            duration: '365', // Default 365 days
-            eventScroll: true // Default
+            trigger: 'ce-trigger', // Default class trigger .ce-trigger
+            banner: 'ce-banner', // Default class banner .ce-banner
+            textTrigger: 'Enable Cookies', // Enable text trigger 'Enable Cookis'
+            duration: '365', // Default duration cookis 365 days
+            eventScroll: false // Default false
         });
     </script>
 </body>
