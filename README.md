@@ -5,10 +5,11 @@
 ```
 COOKIES_ENABLER.init({
     element: 'ce-elm', // Default ce-elm
-    trigger: 'ce-trigger', // Default ce-trigger
-    banner: 'ce-banner', // Default ce-banner
-    duration: '365', // Default 365 days
-    eventScroll: true // Default
+    trigger: 'ce-trigger', // Default class trigger .ce-trigger
+    banner: 'ce-banner', // Default class banner .ce-banner
+    textTrigger: 'Enable Cookies', // Enable text trigger 'Enable Cookis'
+    duration: '365', // Default duration cookis 365 days
+    eventScroll: false // Default false
 });
 ```
 
