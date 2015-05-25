@@ -5,28 +5,40 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var init = function (options) {
 
-        var elem = options.element == null ? document.getElementsByClassName('ce-elm') : document.getElementsByClassName(options.element),
-            textTrigger = options.textTrigger == null ? 'Enable Cookies' : options.textTrigger;
-            classTrigger = options.trigger == null ? 'ce-trigger' : options.trigger,
-            trigger =  options.trigger == null ? document.getElementsByClassName(classTrigger) : document.getElementsByClassName(options.trigger),
-            classBanner = options.banner == null ? 'ce-banner' : options.banner,
-            banner = options.banner == null ? document.getElementsByClassName(classBanner) : document.getElementsByClassName(options.banner),
-            duration = options.duration == null ? '365' : options.duration,
-            eventScroll = options.eventScroll == null ? false : options.eventScroll;
+        var markupClass = {
+            classTrigger : 'ce-trigger',
+            classBanner : 'ce-banner'
+        }
+
+        var opts = {
+            elem : options.element == null ? document.getElementsByClassName('ce-elm') : document.getElementsByClassName(options.element),
+            duration : options.duration == null ? '365' : options.duration,
+            eventScroll : options.eventScroll == null ? false : options.eventScroll,
+            textTrigger : options.textTrigger == null ? 'Enable Cookies' : options.textTrigger
+        }
+
+        var domElmts = {
+            trigger :  document.getElementsByClassName(markupClass.classTrigger),
+            banner : document.getElementsByClassName(markupClass.classBanner)
+        }
 
         if (getCookie() == 'Y') {
-            getScripts(elem, trigger, banner);
+            getScripts(opts.elem, domElmts.trigger, domElmts.banner);
         } else {
-            createBanner(classBanner, classTrigger, textTrigger);
-            if (eventScroll === true) {
+            createBanner(markupClass.classBanner, markupClass.classTrigger, opts.textTrigger);
+            if (opts.eventScroll === true) {
                 window.addEventListener('scroll', function(){
-                    setCookie(duration);
-                    getScripts(elem, trigger, banner);
+                    if (getCookie() != 'Y') {
+                        setCookie(opts.duration);
+                        getScripts(opts.elem, domElmts.trigger, domElmts.banner);
+                        domElmts.banner[0].style.display = 'none';
+                    }
                 });
             }
-            trigger[0].addEventListener("click", function(){
-                setCookie(duration);
-                getScripts(elem, trigger, banner, textTrigger);
+            domElmts.trigger[0].addEventListener("click", function(){
+                setCookie(opts.duration);
+                getScripts(opts.elem, domElmts.trigger, domElmts.banner);
+                domElmts.banner[0].style.display = 'none';
             });
         }
     };
@@ -40,7 +52,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                 +'<a href="#" class="'+classTrigger+'">'+textTrigger+'</a>'
                 +'</div>';
 
-        document.body.insertAdjacentHTML('afterend', el);
+        document.body.insertAdjacentHTML('beforeend', el);
     }
 
     var setCookie = function(days){
@@ -93,7 +105,6 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             s.innerHTML = elem[i].innerHTML;
             document.body.appendChild(s);
         }
-        banner[0].style.display = 'none';
     }
 
     return {
