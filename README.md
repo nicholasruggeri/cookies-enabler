@@ -22,6 +22,17 @@ Cookies-enabler.js is a easy-to-use **pure Javascript** solution for preventivel
     _gaq.push(['_trackPageview']);
     ...
 </script>
+
+<script type="text/plain" class="ce-elm">
+    // FB Share Demo
+    (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=1402028420038023";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
 ```
 3 - Initiate the plugin
 
