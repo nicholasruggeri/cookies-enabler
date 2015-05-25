@@ -15,7 +15,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             elem : options.element == null ? document.getElementsByClassName('ce-elm') : document.getElementsByClassName(options.element),
             duration : options.duration == null ? '365' : options.duration,
             eventScroll : options.eventScroll == null ? false : options.eventScroll,
-            textTrigger : options.textTrigger == null ? 'Enable Cookies' : options.textTrigger
+            bannerHTML : options.bannerHTML == null ? '<a href="#" class="ce-trigger">Enable Cookies</a>' : options.bannerHTML
         }
 
         domElmts = {
@@ -56,7 +56,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
     var createBanner = function(){
 
         var el = '<div class="'+ markupClass.classBanner +'">'
-                +'<a href="#" class="'+ markupClass.classTrigger +'">'+ opts.textTrigger +'</a>'
+                + opts.bannerHTML 
                 +'</div>';
 
         document.body.insertAdjacentHTML('beforeend', el);
