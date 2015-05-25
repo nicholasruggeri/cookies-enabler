@@ -40,7 +40,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                 +'<a href="#" class="'+classTrigger+'">'+textTrigger+'</a>'
                 +'</div>';
 
-        document.body.insertAdjacentHTML('afterend', el);
+        document.body.insertAdjacentHTML('beforeend', el);
     }
 
     var setCookie = function(days){
@@ -77,7 +77,8 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var getScripts = function(elem, trigger, banner){
 
-        var n = elem.length;
+        var n = elem.length,
+            documentFragment = document.createDocumentFragment();
 
         for (var i = 0; i < n; i++){
             var s = document.createElement('script');
@@ -90,9 +91,14 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                     }
                 }
             }
+
             s.innerHTML = elem[i].innerHTML;
-            document.body.appendChild(s);
+            documentFragment.appendChild( s );
+
         }
+
+        document.body.appendChild( docFragment );
+
         banner[0].style.display = 'none';
     }
 
