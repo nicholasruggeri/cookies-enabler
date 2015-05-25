@@ -35,10 +35,10 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             createBanner();
 
             if (opts.eventScroll === true) {
-                window.addEventListener('scroll', enableCookies );
+                window.addEventListener('scroll', enableCookies);
             }
 
-            domElmts.trigger[0].addEventListener("click", enableCookies );
+            domElmts.trigger[0].addEventListener("click", enableCookies);
         }
     }
 
@@ -50,7 +50,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             getScripts();
             domElmts.banner[0].style.display = 'none';
 
-            window.removeEventListener('scroll', enableCookies );
+            window.removeEventListener('scroll', enableCookies);
 
         }
 
@@ -71,7 +71,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         var value = "Y",
             date, expires;
 
-        if ( opts.cookie.duration ) {
+        if (opts.cookie.duration) {
             date = new Date();
             date.setTime(date.getTime()+( opts.cookie.duration*24*60*60*1000));
             expires = "; expires="+date.toGMTString();
