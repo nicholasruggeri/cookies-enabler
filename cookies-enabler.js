@@ -6,7 +6,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
     var markupClass = {
             classTrigger : 'ce-trigger',
             classBanner : 'ce-banner'
-        }, 
+        },
         opts, domElmts;
 
     var init = function (options) {
@@ -26,7 +26,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         if (getCookie() == 'Y') {
 
             getScripts();
-        
+
         } else {
 
             createBanner();
@@ -56,7 +56,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
     var createBanner = function(){
 
         var el = '<div class="'+ markupClass.classBanner +'">'
-                + opts.bannerHTML 
+                + opts.bannerHTML
                 +'</div>';
 
         document.body.insertAdjacentHTML('beforeend', el);
@@ -113,10 +113,10 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                 }
             }
             s.innerHTML = opts.elem[i].innerHTML;
-            documentFragment.appendChild( s );
+            documentFragment.appendChild(s);
         }
 
-        document.body.appendChild( documentFragment );
+        document.body.appendChild(documentFragment);
     }
 
     return {
