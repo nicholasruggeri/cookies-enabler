@@ -15,7 +15,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             elem : options.element == null ? document.getElementsByClassName('ce-elm') : document.getElementsByClassName(options.element),
             duration : options.duration == null ? '365' : options.duration,
             eventScroll : options.eventScroll == null ? false : options.eventScroll,
-            bannerHTML : options.bannerHTML == null ? '<a href="#" class="ce-trigger">Enable Cookies</a>' : options.bannerHTML
+            bannerHTML : options.bannerHTML == null ? 'This website uses cookies.<a href="#" class="ce-trigger">Enable Cookies</a>' : options.bannerHTML
         }
 
         domElmts = {
