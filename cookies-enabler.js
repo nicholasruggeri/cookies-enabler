@@ -3,53 +3,59 @@
 
 window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
-    var init = function (options) {
-
-        var markupClass = {
+    var markupClass = {
             classTrigger : 'ce-trigger',
             classBanner : 'ce-banner'
-        }
+        }, opts, domElmts;
 
-        var opts = {
+    var init = function (options) {
+
+        opts = {
             elem : options.element == null ? document.getElementsByClassName('ce-elm') : document.getElementsByClassName(options.element),
             duration : options.duration == null ? '365' : options.duration,
             eventScroll : options.eventScroll == null ? false : options.eventScroll,
             textTrigger : options.textTrigger == null ? 'Enable Cookies' : options.textTrigger
         }
 
-        var domElmts = {
+        domElmts = {
             trigger :  document.getElementsByClassName(markupClass.classTrigger),
             banner : document.getElementsByClassName(markupClass.classBanner)
         }
 
         if (getCookie() == 'Y') {
+
             getScripts(opts.elem);
+        
         } else {
-            createBanner(markupClass.classBanner, markupClass.classTrigger, opts.textTrigger);
+
+            createBanner();
+
             if (opts.eventScroll === true) {
-                window.addEventListener('scroll', function(){
-                    if (getCookie() != 'Y') {
-                        setCookie(opts.duration);
-                        getScripts(opts.elem);
-                        domElmts.banner[0].style.display = 'none';
-                    }
-                });
+                window.addEventListener('scroll', enableCookies );
             }
-            domElmts.trigger[0].addEventListener("click", function(){
-                setCookie(opts.duration);
-                getScripts(opts.elem);
-                domElmts.banner[0].style.display = 'none';
-            });
+
+            domElmts.trigger[0].addEventListener("click", enableCookies );
         }
     };
 
-    var createBanner = function(classBanner, classTrigger, textTrigger){
+    var enableCookies = function(){
 
-        var classBanner = classBanner,
-            classTrigger = classTrigger,
-            textTrigger = textTrigger
-            el = '<div class="'+classBanner+'">'
-                +'<a href="#" class="'+classTrigger+'">'+textTrigger+'</a>'
+        if (getCookie() != 'Y') {
+
+            setCookie(opts.duration);
+            getScripts(opts.elem);
+            domElmts.banner[0].style.display = 'none';
+
+            window.removeEventListener('scroll', enableCookies );
+
+        }
+
+    };
+
+    var createBanner = function(){
+
+        var el = '<div class="'+markupClass.classBanner+'">'
+                +'<a href="#" class="'+markupClass.classTrigger+'">'+opts.textTrigger+'</a>'
                 +'</div>';
 
         document.body.insertAdjacentHTML('beforeend', el);
