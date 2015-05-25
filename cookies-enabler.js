@@ -12,7 +12,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
     var init = function (options) {
 
         opts = {
-            elem: options.element == null ? document.getElementsByClassName('ce-elm') : document.getElementsByClassName(options.element),
+            scriptClass: options.element == null ? document.getElementsByClassName('ce-script') : document.getElementsByClassName(options.element),
             eventScroll: options.eventScroll == null ? false : options.eventScroll,
             bannerHTML: options.bannerHTML == null ? 'This website uses cookies.<a href="#" class="ce-trigger">Enable Cookies</a>' : options.bannerHTML,
             cookie: {
@@ -98,22 +98,22 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var getScripts = function(){
 
-        var n = opts.elem.length,
+        var n = opts.scriptClass.length,
             documentFragment = document.createDocumentFragment(),
             i, y, s, attrib;
 
         for (i = 0; i < n; i++){
             s = document.createElement('script');
             s.type = 'text/javascript';
-            for (y = 0; y < opts.elem[i].attributes.length; y++) {
-                attrib = opts.elem[i].attributes[y];
+            for (y = 0; y < opts.scriptClass[i].attributes.length; y++) {
+                attrib = opts.scriptClass[i].attributes[y];
                 if (attrib.specified) {
                     if ((attrib.name != 'type') && (attrib.name != 'class')){
                         s.setAttribute(attrib.name, attrib.value);
                     }
                 }
             }
-            s.innerHTML = opts.elem[i].innerHTML;
+            s.innerHTML = opts.scriptClass[i].innerHTML;
             documentFragment.appendChild(s);
         }
 
