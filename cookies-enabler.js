@@ -37,7 +37,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
             domElmts.trigger[0].addEventListener("click", enableCookies );
         }
-    };
+    }
 
     var enableCookies = function(){
 
@@ -51,7 +51,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         }
 
-    };
+    }
 
     var createBanner = function(){
 
@@ -60,6 +60,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                 +'</div>';
 
         document.body.insertAdjacentHTML('beforeend', el);
+
     }
 
     var setCookie = function(){
