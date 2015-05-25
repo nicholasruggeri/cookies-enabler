@@ -4,23 +4,26 @@
 window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var markupClass = {
-            classTrigger : 'ce-trigger',
-            classBanner : 'ce-banner'
+            classTrigger: 'ce-trigger',
+            classBanner: 'ce-banner'
         },
         opts, domElmts;
 
     var init = function (options) {
 
         opts = {
-            elem : options.element == null ? document.getElementsByClassName('ce-elm') : document.getElementsByClassName(options.element),
-            duration : options.duration == null ? '365' : options.duration,
-            eventScroll : options.eventScroll == null ? false : options.eventScroll,
-            bannerHTML : options.bannerHTML == null ? 'This website uses cookies.<a href="#" class="ce-trigger">Enable Cookies</a>' : options.bannerHTML
+            elem: options.element == null ? document.getElementsByClassName('ce-elm') : document.getElementsByClassName(options.element),
+            eventScroll: options.eventScroll == null ? false : options.eventScroll,
+            bannerHTML: options.bannerHTML == null ? 'This website uses cookies.<a href="#" class="ce-trigger">Enable Cookies</a>' : options.bannerHTML,
+            cookie: {
+                name: options.cookie.name == null ? 'ce-consent' : options.cookie.name,
+                duration: options.cookie.duration == null ? '365' : options.cookie.duration
+            }
         }
 
         domElmts = {
-            trigger :  document.getElementsByClassName(markupClass.classTrigger),
-            banner : document.getElementsByClassName(markupClass.classBanner)
+            trigger:  document.getElementsByClassName(markupClass.classTrigger),
+            banner: document.getElementsByClassName(markupClass.classBanner)
         }
 
         if (getCookie() == 'Y') {
@@ -65,31 +68,29 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var setCookie = function(){
 
-        var name = "ce-consent",
-            value = "Y",
+        var value = "Y",
             date, expires;
 
-        if ( opts.duration ) {
+        if ( opts.cookie.duration ) {
             date = new Date();
-            date.setTime(date.getTime()+( opts.duration*24*60*60*1000));
+            date.setTime(date.getTime()+( opts.cookie.duration*24*60*60*1000));
             expires = "; expires="+date.toGMTString();
         } else {
             expires = "";
         }
-        document.cookie = name +"="+ value+expires +"; path=/";
+        document.cookie = opts.cookie.name +"="+ value+expires +"; path=/";
     }
 
     var getCookie = function(){
 
-        var name = "ce-consent",
-            cookies = document.cookie.split(";"),
+        var cookies = document.cookie.split(";"),
             i, x, y;
 
         for (i = 0; i < cookies.length; i++){
             x = cookies[i].substr(0,cookies[i].indexOf("="));
             y = cookies[i].substr(cookies[i].indexOf("=")+1);
             x = x.replace(/^\s+|\s+$/g,"");
-            if (x == name) {
+            if (x == opts.cookie.name) {
                 return unescape(y);
             }
         }
