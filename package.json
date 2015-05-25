@@ -1,0 +1,12 @@
+{
+  "name": "cookies-enabler",
+  "version": "0.0.1",
+  "description": "Cookies-enabler.js is a easy-to-use pure Javascript solution for preventively blocking third-party cookies installed by js.",
+  "author": "Nicholas Ruggeri, ",
+  "dependencies": {
+    "gulp": "3.8.11"
+  },
+  "devDependencies": {
+    "gulp-uglify": "1.2.0"
+  }
+}
