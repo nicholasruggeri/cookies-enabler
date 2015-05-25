@@ -47,8 +47,6 @@ COOKIES_ENABLER.init();
 ```
 COOKIES_ENABLER.init({
     element: 'ce-elm',               // Default
-    trigger: 'ce-trigger',           // Default
-    banner: 'ce-banner',             // Default
     textTrigger: 'Enable Cookies',   // Default
     duration: '365',                 // Default
     eventScroll: false               // Default
