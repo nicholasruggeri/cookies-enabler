@@ -12,13 +12,7 @@ Cookies-enabler.js is a easy-to-use **pure Javascript** solution for preventivel
 ```
 <script src="cookies-enabler.js></script>
 ```
-
-2 - Initiate the plugin
-
-```
-COOKIES_ENABLER.init();
-```
-3 - Aggiungi la classe "ce-elm"  e "text/plain" agli script che installano cookies
+2 - Aggiungi la classe "ce-elm"  e "text/plain" agli script che installano cookies
 
 ```
 <script type="text/plain" class="ce-elm">
@@ -29,6 +23,12 @@ COOKIES_ENABLER.init();
     ...
 </script>
 ```
+3 - Initiate the plugin
+
+```
+COOKIES_ENABLER.init();
+```
+
 
 
 
