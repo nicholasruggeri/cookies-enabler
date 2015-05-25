@@ -40,7 +40,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                 +'<a href="#" class="'+classTrigger+'">'+textTrigger+'</a>'
                 +'</div>';
 
-        document.body.insertAdjacentHTML('afterend', el);
+        document.body.insertAdjacentHTML('beforeend', el);
     }
 
     var setCookie = function(days){
