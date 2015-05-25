@@ -37,7 +37,7 @@ Step 3: inserite COOKIES_ENABLER.init(); prima della chiusura del body.
 Cookies-enabler previene l’installazione dei cookie che vengono caricati via javascript dai vari scripts che si inseriscono per tracciare l’utente o per inserire elementi social (likebox facebook, twitter ecc).
 
 
-Nessuna dipendenza, facile da installare.
+Nessuna dipendenza, facile da installare. Per supportare IE8 è necessario un polyfill per getElementsByClassName.
 
 
 Tanti saluti.
