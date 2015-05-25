@@ -6,7 +6,8 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
     var markupClass = {
             classTrigger : 'ce-trigger',
             classBanner : 'ce-banner'
-        }, opts, domElmts;
+        }, 
+        opts, domElmts;
 
     var init = function (options) {
 
@@ -24,7 +25,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         if (getCookie() == 'Y') {
 
-            getScripts(opts.elem);
+            getScripts();
         
         } else {
 
@@ -42,8 +43,8 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         if (getCookie() != 'Y') {
 
-            setCookie(opts.duration);
-            getScripts(opts.elem);
+            setCookie();
+            getScripts();
             domElmts.banner[0].style.display = 'none';
 
             window.removeEventListener('scroll', enableCookies );
@@ -54,34 +55,34 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var createBanner = function(){
 
-        var el = '<div class="'+markupClass.classBanner+'">'
-                +'<a href="#" class="'+markupClass.classTrigger+'">'+opts.textTrigger+'</a>'
+        var el = '<div class="'+ markupClass.classBanner +'">'
+                +'<a href="#" class="'+ markupClass.classTrigger +'">'+ opts.textTrigger +'</a>'
                 +'</div>';
 
         document.body.insertAdjacentHTML('beforeend', el);
     }
 
-    var setCookie = function(days){
+    var setCookie = function(){
 
         var name = "ce-consent",
             value = "Y",
             date, expires;
 
-        if (days) {
+        if ( opts.duration ) {
             date = new Date();
-            date.setTime(date.getTime()+(days*24*60*60*1000));
+            date.setTime(date.getTime()+( opts.duration*24*60*60*1000));
             expires = "; expires="+date.toGMTString();
         } else {
             expires = "";
         }
-        document.cookie = name+"="+value+expires+"; path=/";
+        document.cookie = name +"="+ value+expires +"; path=/";
     }
 
     var getCookie = function(){
 
-        var name = "ce-consent";
-        var i, x, y,
-            cookies = document.cookie.split(";");
+        var name = "ce-consent",
+            cookies = document.cookie.split(";"),
+            i, x, y;
 
         for (i = 0; i < cookies.length; i++){
             x = cookies[i].substr(0,cookies[i].indexOf("="));
@@ -93,23 +94,24 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         }
     }
 
-    var getScripts = function(elem){
+    var getScripts = function(){
 
-        var n = elem.length,
-            documentFragment = document.createDocumentFragment();
+        var n = opts.elem.length,
+            documentFragment = document.createDocumentFragment(),
+            i, y, s, attrib;
 
-        for (var i = 0; i < n; i++){
-            var s = document.createElement('script');
+        for (i = 0; i < n; i++){
+            s = document.createElement('script');
             s.type = 'text/javascript';
-            for (var y = 0; y < elem[i].attributes.length; y++) {
-                var attrib = elem[i].attributes[y];
+            for (y = 0; y < opts.elem[i].attributes.length; y++) {
+                attrib = opts.elem[i].attributes[y];
                 if (attrib.specified) {
                     if ((attrib.name != 'type') && (attrib.name != 'class')){
                         s.setAttribute(attrib.name, attrib.value);
                     }
                 }
             }
-            s.innerHTML = elem[i].innerHTML;
+            s.innerHTML = opts.elem[i].innerHTML;
             documentFragment.appendChild( s );
         }
 
