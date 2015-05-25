@@ -12,10 +12,10 @@ Cookies-enabler.js is a easy-to-use **pure Javascript** solution for preventivel
 ```
 <script src="cookies-enabler.js></script>
 ```
-2 - Add the class "ce-elm" and type="text/plain" to scripts that install cookies
+2 - Add the class "ce-script" and type="text/plain" to scripts that install cookies
 
 ```
-<script type="text/plain" class="ce-elm">
+<script type="text/plain" class="ce-script">
     // GA Demo
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-XXXXX-X']);
@@ -23,7 +23,7 @@ Cookies-enabler.js is a easy-to-use **pure Javascript** solution for preventivel
     ...
 </script>
 
-<script type="text/plain" class="ce-elm">
+<script type="text/plain" class="ce-script">
     // FB Share Demo
     (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -46,10 +46,13 @@ COOKIES_ENABLER.init();
 
 ```
 COOKIES_ENABLER.init({
-    element: 'ce-elm',               // Default
-    bannerHTML: 'This website uses cookies. <a href="#" class="ce-trigger">Enable Cookies</a>',   // Default
-    duration: '365',                 // Default
-    eventScroll: false               // Default
+    scriptClass: 'ce-script',   // Default
+    eventScroll: false,         // Default
+    bannerHTML: '<p>This website uses cookies.<a href="#" class="ce-trigger">Enable Cookies</a></p>',   // Default
+    cookie: {
+        name: 'ce-consent',     // Default
+        duration: 365           // Default
+    }
 });
 ```
 
