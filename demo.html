@@ -35,7 +35,7 @@
 </head>
 <body>
     <div id="fb-root"></div>
-    <script type="text/plain" class="ce-elm">
+    <script type="text/plain" class="ce-script">
         // FB Demo
         (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -46,7 +46,7 @@
         }(document, 'script', 'facebook-jssdk'));
     </script>
     <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-    <script type="text/plain" class="ce-elm">
+    <script type="text/plain" class="ce-script">
         // GA Demo
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-XXXXX-X']);
@@ -60,10 +60,13 @@
     <script src="cookies-enabler.js"></script>
     <script>
         COOKIES_ENABLER.init({
-            element: 'ce-elm', // Default class
+            element: 'ce-script', // Default class
             bannerHTML: '<p>This website will use techincal and third party cookies to give you the best possible experience. </p> <a href="#" class="ce-trigger">Enable Cookies</a> or <a href="#">Learn More</a>', // Enable text trigger 'Enable Cookis'
-            duration: '365', // Default duration cookis 365 days
-            eventScroll: true // Default false
+            eventScroll: true, // Default false
+            cookie: {
+                name: 'ce-cookie',
+                duration: 365
+            }
         });
     </script>
 </body>
