@@ -18,7 +18,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         }
 
         var domElmts = {
-            trigger :  document.getElementsByClassName(markupClass.classTrigger),
+            trigger : document.getElementsByClassName(markupClass.classTrigger),
             banner : document.getElementsByClassName(markupClass.classBanner)
         }
 
@@ -104,10 +104,10 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                 }
             }
             s.innerHTML = elem[i].innerHTML;
-            documentFragment.appendChild( s );
+            documentFragment.appendChild(s);
         }
 
-        document.body.appendChild( documentFragment );
+        document.body.appendChild(documentFragment);
     }
 
     return {
