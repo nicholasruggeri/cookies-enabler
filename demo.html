@@ -12,16 +12,32 @@
         }
         .ce-banner{
             position: fixed;
-            top: 0;
-            left: 0;
+            bottom: 1em;
+            left: 1em;
+            right: 1em;
+
             background-color: #dedede;
-            width: 100%;
-            padding: .5em;
-        }
-        .ce-banner .ce-trigger{
+
+            padding: 1em;
             color: #232323;
             font-style: 1em;
             font-family: arial;
+        }
+
+        .ce-banner p{
+           margin-bottom: 1em; 
+        }
+        .ce-banner .ce-trigger{
+            
+            background-color: #333;
+            color: #fff;
+
+            text-decoration: none;
+
+            padding: .6em 1em;
+
+            display: inline-block;
+
         }
     </style>
 </head>
@@ -54,7 +70,7 @@
     <script>
         COOKIES_ENABLER.init({
             element: 'ce-elm', // Default ce-elm
-            textTrigger: 'Enable Cookies', // Enable text trigger 'Enable Cookis'
+            bannerHTML: '<p>This website will use techincal and third party cookies to give you the best possible experience. </p> <a href="#" class="ce-trigger">Enable Cookies</a> or <a href="#">Learn More</a>', // Enable text trigger 'Enable Cookis'
             duration: '365', // Default duration cookis 365 days
             eventScroll: false // Default false
         });
