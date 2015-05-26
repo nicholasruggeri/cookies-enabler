@@ -3,28 +3,36 @@
 
 window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
-    var markupClass = {
+    var defaults = {
+            scriptClass: document.getElementsByClassName('ce-script'),
+            eventScroll: false,
+            bannerHTML: 'This website uses cookies.<a href="#" class="ce-trigger">Enable Cookies</a>',
+            cookie: {
+                name: 'ce-consent',
+                duration: '365'
+            }
+
+        },
+        markupClass = {
             classTrigger: 'ce-trigger',
             classBanner: 'ce-banner'
         },
         opts, domElmts;
 
+    function _extend(){
+
+        var i, key;
+
+        for(i=1; i<arguments.length; i++)
+            for(key in arguments[i])
+                if(arguments[i].hasOwnProperty(key))
+                    arguments[0][key] = arguments[i][key];
+        return arguments[0];
+    }
+
     var init = function (options) {
 
-        opts = {
-            scriptClass: options.element == null ? document.getElementsByClassName('ce-script') : document.getElementsByClassName(options.element),
-            eventScroll: options.eventScroll == null ? false : options.eventScroll,
-            bannerHTML: options.bannerHTML == null ? 'This website uses cookies.<a href="#" class="ce-trigger">Enable Cookies</a>' : options.bannerHTML,
-            cookie: {
-                name: options.cookie.name == null ? 'ce-consent' : options.cookie.name,
-                duration: options.cookie.duration == null ? '365' : options.cookie.duration
-            }
-        }
-
-        domElmts = {
-            trigger:  document.getElementsByClassName(markupClass.classTrigger),
-            banner: document.getElementsByClassName(markupClass.classBanner)
-        }
+        opts = _extend( {}, defaults, options );
 
         if (getCookie() == 'Y') {
 
@@ -69,6 +77,11 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                 +'</div>';
 
         document.body.insertAdjacentHTML('beforeend', el);
+        
+        domElmts = {
+            trigger:  document.getElementsByClassName(markupClass.classTrigger),
+            banner: document.getElementsByClassName(markupClass.classBanner)
+        }
 
     }
 
