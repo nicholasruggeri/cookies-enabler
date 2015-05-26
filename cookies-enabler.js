@@ -42,7 +42,13 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         }
     }
 
-    var enableCookies = function(){
+    var enableCookies = function(event){
+
+        if( event.type === 'click' ){
+
+            event.preventDefault();
+
+        }
 
         if (getCookie() != 'Y') {
 
