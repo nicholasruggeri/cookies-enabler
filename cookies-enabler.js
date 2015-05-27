@@ -1,8 +1,3 @@
-// Made with milk and cookies by Nicholas Ruggeri and Gianmarco Simone
-// https://github.com/nicholasruggeri/cookies-enabler
-// https://github.com/nicholasruggeri
-// https://github.com/gsimone
-
 window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     'use strict';
