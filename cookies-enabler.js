@@ -3,8 +3,9 @@
 // https://github.com/nicholasruggeri
 // https://github.com/gsimone
 
-
 window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
+
+    'use strict';
 
     var defaults = {
             scriptClass: 'ce-script',
@@ -15,13 +16,11 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                 name: 'ce-consent',
                 duration: '365'
             },
-            preventIframes: false
+            preventIframes: false,
+            acceptClass: 'ce-accept',
+            dismissClass: 'ce-dismiss',
+            bannerClass: 'ce-banner'
 
-        },
-        markupClass = {
-            accept: 'ce-accept',
-            dismiss: 'ce-dismiss',
-            banner: 'ce-banner'
         },
         opts, domElmts;
 
@@ -42,9 +41,11 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         var i, 
             accept = domElmts.accept, 
-            accept_l = accept.length
+            accept_l = accept.length,
             dismiss = domElmts.dismiss,
             dismiss_l = dismiss.length;
+
+        console.log( accept );
 
         if (opts.eventScroll === true) {
 
@@ -112,16 +113,16 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         console.log('create banner');
 
-        var el = '<div class="'+ markupClass.banner +'">'
+        var el = '<div class="'+ opts.bannerClass +'">'
                 + opts.bannerHTML
                 +'</div>';
 
         document.body.insertAdjacentHTML('beforeend', el);
 
         domElmts = {
-            accept:  document.getElementsByClassName(markupClass.accept),
-            banner: document.getElementsByClassName(markupClass.banner),
-            dismiss: document.getElementsByClassName(markupClass.dismiss)
+            accept:  document.getElementsByClassName(opts.acceptClass),
+            banner: document.getElementsByClassName(opts.bannerClass),
+            dismiss: document.getElementsByClassName(opts.dismissClass)
         }
 
     }
@@ -166,7 +167,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         var iframes = document.getElementsByClassName( opts.iframeClass ),
             n = iframes.length,
-            src, iframe;
+            src, iframe, i;
 
         for( i = 0; i < n; i++ ){
 
@@ -181,7 +182,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         var iframes = document.getElementsByClassName( opts.iframeClass ),
             n = iframes.length,
-            src, iframe;
+            src, iframe, i;
 
         for( i = 0; i < n; i++ ){
 
