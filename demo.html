@@ -31,17 +31,11 @@
             padding: .6em 1em;
             display: inline-block;
         }
-
-        .ce-iframe{
-
-        }
     </style>
 </head>
 <body>
 
-    <iframe class="ce-iframe" data-ce-src="https://player.vimeo.com/video/1084537" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
-        
-    </iframe>
+    <iframe class="ce-iframe" data-ce-src="https://player.vimeo.com/video/1084537" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
     <iframe width="560" height="315" class="ce-iframe" data-ce-src="https://www.youtube.com/embed/ZSn3Tvc7jQU" frameborder="0" allowfullscreen></iframe>
 
@@ -76,15 +70,19 @@
     <script src="cookies-enabler.js"></script>
     <script>
         COOKIES_ENABLER.init({
-            scriptClass: 'ce-script', // Default class
-            iframeClass: 'ce-iframe', // Default iframe class
-            bannerHTML: '<p>This website will use technical and third party cookies to give you the best possible experience. </p> <a href="#" class="ce-trigger">Enable Cookies</a> or <a href="#">Learn More</a>', // Enable text trigger 'Enable Cookis'
-            eventScroll: true, // Default false
+            scriptClass: 'ce-script',           // Default 'ce-script'
+            iframeClass: 'ce-iframe',           // Default 'ce-iframe'
+            bannerHTML: '<p>This website uses cookies. '
+                        +'<a href="#" class="ce-trigger">'
+                        +'Enable Cookies'
+                        +'</a>'
+                        +'</p>',                // Default HTML banner
+            eventScroll: false,                 // Default false
             cookie: {
-                name: 'ce-cookie',
-                duration: 365
+                name: 'ce-cookie',              // default 'ce-cookie'
+                duration: 365                   // Default 365
             },
-            preventIframes: true
+            preventIframes: false               // Defaul false
         });
     </script>
 </body>
