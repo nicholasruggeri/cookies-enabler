@@ -1,5 +1,8 @@
-// Made with milk and cookies by Nicholas Ruggeri
+// Made with milk and cookies by Nicholas Ruggeri and Gianmarco Simone
 // https://github.com/nicholasruggeri/cookies-enabler
+// https://github.com/nicholasruggeri
+// https://github.com/gsimone
+
 
 window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
@@ -84,7 +87,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                 +'</div>';
 
         document.body.insertAdjacentHTML('beforeend', el);
-        
+
         domElmts = {
             trigger:  document.getElementsByClassName(markupClass.classTrigger),
             banner: document.getElementsByClassName(markupClass.classBanner)
