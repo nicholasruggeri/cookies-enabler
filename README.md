@@ -10,7 +10,7 @@ Cookies-enabler.js is a easy-to-use **pure Javascript** solution for preventivel
  1 - Load the script
 
 ```
-<script src="cookies-enabler.js></script>
+<script src="cookies-enabler.js"></script>
 ```
 2 - Add the class ```"ce-script"``` and ```type="text/plain"``` to scripts that install cookies
 
