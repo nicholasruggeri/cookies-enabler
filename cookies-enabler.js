@@ -10,7 +10,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             scriptClass: 'ce-script',
             iframeClass: 'ce-iframe',
             eventScroll: false,
-            bannerHTML: 'This website uses cookies.<a href="#" class="ce-trigger">Enable Cookies</a>',
+            bannerHTML: 'This website uses cookies.<a href="#" class="ce-accept">Enable Cookies</a>',
             cookie: {
                 name: 'ce-consent',
                 duration: '365'
@@ -19,8 +19,9 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         },
         markupClass = {
-            classTrigger: 'ce-trigger',
-            classBanner: 'ce-banner'
+            accept: 'ce-accept',
+            dismiss: 'ce-dismiss',
+            banner: 'ce-banner'
         },
         opts, domElmts;
 
@@ -32,7 +33,37 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             for(key in arguments[i])
                 if(arguments[i].hasOwnProperty(key))
                     arguments[0][key] = arguments[i][key];
+
         return arguments[0];
+
+    }
+
+    var bindUI = function(){
+
+        var i, 
+            accept = domElmts.accept, 
+            accept_l = accept.length
+            dismiss = domElmts.dismiss,
+            dismiss_l = dismiss.length;
+
+        if (opts.eventScroll === true) {
+
+            window.addEventListener('scroll', enableCookies);
+        
+        }
+
+        for (i = 0; i < accept_l; i++) {
+
+            accept[i].addEventListener("click", enableCookies );
+        
+        }
+
+        for (i = 0; i < dismiss_l; i++) {
+
+            dismiss[i].addEventListener("click", dismissBanner );
+        
+        }
+
     }
 
     var init = function (options) {
@@ -50,17 +81,14 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             createBanner();
             if( opts.preventIframes ) hideIframes();
 
-            if (opts.eventScroll === true) {
-                window.addEventListener('scroll', enableCookies);
-            }
+            bindUI();
 
-            domElmts.trigger[0].addEventListener("click", enableCookies);
         }
     }
 
     var enableCookies = function(event){
 
-        if( event.type === 'click' ){
+        if( typeof event != "undefined" && event.type === 'click' ){
 
             event.preventDefault();
 
@@ -72,7 +100,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             getScripts();
             if( opts.preventIframes ) getIframes();
 
-            domElmts.banner[0].style.display = 'none';
+            dismissBanner();
 
             window.removeEventListener('scroll', enableCookies);
 
@@ -82,16 +110,25 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var createBanner = function(){
 
-        var el = '<div class="'+ markupClass.classBanner +'">'
+        console.log('create banner');
+
+        var el = '<div class="'+ markupClass.banner +'">'
                 + opts.bannerHTML
                 +'</div>';
 
         document.body.insertAdjacentHTML('beforeend', el);
 
         domElmts = {
-            trigger:  document.getElementsByClassName(markupClass.classTrigger),
-            banner: document.getElementsByClassName(markupClass.classBanner)
+            accept:  document.getElementsByClassName(markupClass.accept),
+            banner: document.getElementsByClassName(markupClass.banner),
+            dismiss: document.getElementsByClassName(markupClass.dismiss)
         }
+
+    }
+
+    var dismissBanner = function(){
+
+        domElmts.banner[0].style.display = 'none';
 
     }
 
@@ -185,7 +222,9 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
     }
 
     return {
-        init: init
+        init: init,
+        enableCookies: enableCookies,
+        dismissBanner: dismissBanner
     };
 
 }());
