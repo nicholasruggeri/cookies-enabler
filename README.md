@@ -12,7 +12,7 @@ Cookies-enabler.js is a easy-to-use **pure Javascript** solution for preventivel
 ```
 <script src="cookies-enabler.js></script>
 ```
-2 - Add the class "ce-script" and type="text/plain" to scripts that install cookies
+2 - Add the class ```"ce-script"``` and ```type="text/plain"``` to scripts that install cookies
 
 ```
 <script type="text/plain" class="ce-script">
@@ -31,6 +31,12 @@ Cookies-enabler.js is a easy-to-use **pure Javascript** solution for preventivel
     ...
 </script>
 ```
+
+For ```iframes```, move the ```src``` in ```data-ce-src``` and add the class ```"ce-iframe"```
+```
+<iframe class="ce-iframe" data-ce-src="https://player.vimeo.com/video/1084537" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+```
+
 3 - Initiate the plugin
 
 ```
