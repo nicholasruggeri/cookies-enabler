@@ -10,7 +10,7 @@ Cookies-enabler.js is a easy-to-use **pure Javascript** solution for preventivel
  1 - Load the script
 
 ```
-<script src="cookies-enabler.js></script>
+<script src="cookies-enabler.js"></script>
 ```
 2 - Add the class ```"ce-script"``` and ```type="text/plain"``` to scripts that install cookies
 
@@ -52,13 +52,19 @@ COOKIES_ENABLER.init();
 
 ```
 COOKIES_ENABLER.init({
-    scriptClass: 'ce-script',   // Default
-    eventScroll: false,         // Default
-    bannerHTML: '<p>This website uses cookies.<a href="#" class="ce-trigger">Enable Cookies</a></p>',   // Default
+    scriptClass: 'ce-script',                       // Default 'ce-script'
+    iframeClass: 'ce-iframe',                       // Default 'ce-iframe'
+    bannerHTML: '<p>This website uses cookies. '
+                +'<a href="#" class="ce-trigger">'
+                +'Enable Cookies'
+                +'</a>'
+                +'</p>',                            // Default HTML banner
+    eventScroll: false,                             // Default false
     cookie: {
-        name: 'ce-consent',     // Default
-        duration: 365           // Default
-    }
+        name: 'ce-cookie',                          // default 'ce-cookie'
+        duration: 365                               // Default 365
+    },
+    preventIframes: false                           // Defaul false
 });
 ```
 
