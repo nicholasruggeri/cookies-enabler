@@ -5,13 +5,14 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var defaults = {
             scriptClass: 'ce-script',
-            iframesClass: 'ce-iframe',
+            iframeClass: 'ce-iframe',
             eventScroll: false,
             bannerHTML: 'This website uses cookies.<a href="#" class="ce-trigger">Enable Cookies</a>',
             cookie: {
                 name: 'ce-consent',
                 duration: '365'
-            }
+            },
+            preventIframes: false
 
         },
         markupClass = {
@@ -38,12 +39,13 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         if (getCookie() == 'Y') {
 
             getScripts();
-            getIframes();
+
+            if( opts.preventIframes ) getIframes();
 
         } else {
 
             createBanner();
-            hideIframes();
+            if( opts.preventIframes ) hideIframes();
 
             if (opts.eventScroll === true) {
                 window.addEventListener('scroll', enableCookies);
@@ -65,7 +67,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
             setCookie();
             getScripts();
-            getIframes();
+            if( opts.preventIframes ) getIframes();
 
             domElmts.banner[0].style.display = 'none';
 
@@ -122,7 +124,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var hideIframes = function(){
 
-        var iframes = document.getElementsByClassName( opts.iframesClass ),
+        var iframes = document.getElementsByClassName( opts.iframeClass ),
             n = iframes.length,
             src, iframe;
 
@@ -137,7 +139,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var getIframes = function(){
 
-        var iframes = document.getElementsByClassName( opts.iframesClass ),
+        var iframes = document.getElementsByClassName( opts.iframeClass ),
             n = iframes.length,
             src, iframe;
 

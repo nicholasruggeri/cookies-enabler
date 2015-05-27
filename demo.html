@@ -76,13 +76,15 @@
     <script src="cookies-enabler.js"></script>
     <script>
         COOKIES_ENABLER.init({
-            element: 'ce-script', // Default class
-            bannerHTML: '<p>This website will use techincal and third party cookies to give you the best possible experience. </p> <a href="#" class="ce-trigger">Enable Cookies</a> or <a href="#">Learn More</a>', // Enable text trigger 'Enable Cookis'
+            scriptClass: 'ce-script', // Default class
+            iframeClass: 'ce-iframe', // Default iframe class
+            bannerHTML: '<p>This website will use technical and third party cookies to give you the best possible experience. </p> <a href="#" class="ce-trigger">Enable Cookies</a> or <a href="#">Learn More</a>', // Enable text trigger 'Enable Cookis'
             eventScroll: true, // Default false
             cookie: {
                 name: 'ce-cookie',
                 duration: 365
-            }
+            },
+            preventIframes: true
         });
     </script>
 </body>
