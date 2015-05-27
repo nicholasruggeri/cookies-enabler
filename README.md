@@ -52,19 +52,19 @@ COOKIES_ENABLER.init();
 
 ```
 COOKIES_ENABLER.init({
-    scriptClass: 'ce-script',           // Default 'ce-script'
-    iframeClass: 'ce-iframe',           // Default 'ce-iframe'
-    bannerHTML: '<p>This website uses cookies.'
+    scriptClass: 'ce-script',                       // Default 'ce-script'
+    iframeClass: 'ce-iframe',                       // Default 'ce-iframe'
+    bannerHTML: '<p>This website uses cookies. '
                 +'<a href="#" class="ce-trigger">'
                 +'Enable Cookies'
                 +'</a>'
-                +'</p>',                // Default HTML banner
-    eventScroll: false,                 // Default false
+                +'</p>',                            // Default HTML banner
+    eventScroll: false,                             // Default false
     cookie: {
-        name: 'ce-cookie',              // default 'ce-cookie'
-        duration: 365                   // Default 365
+        name: 'ce-cookie',                          // default 'ce-cookie'
+        duration: 365                               // Default 365
     },
-    preventIframes: false               // Defaul false
+    preventIframes: false                           // Defaul false
 });
 ```
 
