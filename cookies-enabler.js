@@ -25,47 +25,56 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         opts, domElmts;
 
     function _extend(){
-
         var i, key;
-
         for(i=1; i<arguments.length; i++)
             for(key in arguments[i])
                 if(arguments[i].hasOwnProperty(key))
                     arguments[0][key] = arguments[i][key];
-
         return arguments[0];
+    };
 
-    }
+    function _debounce(func, wait, immediate) {
+        var timeout;
+        return function() {
+            var context = this, args = arguments;
+            var later = function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
+    };
 
     var bindUI = function(){
 
-        var i, 
-            accept = domElmts.accept, 
+        var i,
+            accept = domElmts.accept,
             accept_l = accept.length,
             dismiss = domElmts.dismiss,
             dismiss_l = dismiss.length;
 
-        console.log( accept );
-
         if (opts.eventScroll === true) {
 
-            window.addEventListener('scroll', enableCookies);
-        
+            window.addEventListener('scroll', enableCookies());
+
         }
 
         for (i = 0; i < accept_l; i++) {
 
             accept[i].addEventListener("click", enableCookies );
-        
+
         }
 
         for (i = 0; i < dismiss_l; i++) {
 
             dismiss[i].addEventListener("click", dismissBanner );
-        
+
         }
 
-    }
+    };
 
     var init = function (options) {
 
@@ -85,9 +94,9 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             bindUI();
 
         }
-    }
+    };
 
-    var enableCookies = function(event){
+    var enableCookies = _debounce(function(event){
 
         if( typeof event != "undefined" && event.type === 'click' ){
 
@@ -107,11 +116,9 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         }
 
-    }
+    }, 250, false);
 
     var createBanner = function(){
-
-        console.log('create banner');
 
         var el = '<div class="'+ opts.bannerClass +'">'
                 + opts.bannerHTML
@@ -125,13 +132,13 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             dismiss: document.getElementsByClassName(opts.dismissClass)
         }
 
-    }
+    };
 
     var dismissBanner = function(){
 
         domElmts.banner[0].style.display = 'none';
 
-    }
+    };
 
     var setCookie = function(){
 
@@ -146,7 +153,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             expires = "";
         }
         document.cookie = opts.cookie.name +"="+ value+expires +"; path=/";
-    }
+    };
 
     var getCookie = function(){
 
@@ -161,7 +168,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                 return unescape(y);
             }
         }
-    }
+    };
 
     var hideIframes = function(){
 
@@ -176,7 +183,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         }
 
-    }
+    };
 
     var getIframes = function(){
 
@@ -194,7 +201,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         }
 
-    }
+    };
 
     var getScripts = function(){
 
@@ -220,7 +227,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         }
 
         document.body.appendChild(documentFragment);
-    }
+    };
 
     return {
         init: init,
