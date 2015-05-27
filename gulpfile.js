@@ -1,10 +1,12 @@
 var gulp = require('gulp'),
-    uglify = require('gulp-uglify');
+    uglify = require('gulp-uglify'),
+    rename = require("gulp-rename");
 
 gulp.task('compress', function() {
-  return gulp.src('cookies-enabler.js')
-    .pipe(uglify())
-    .pipe(gulp.dest('min'));
+    gulp.src('cookies-enabler.js')
+        .pipe(uglify())
+        .pipe(rename({extname: '.min.js'}))
+        .pipe(gulp.dest(''));
 });
 
 gulp.task('watch', function() {
