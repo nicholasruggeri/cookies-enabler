@@ -76,4 +76,4 @@ COOKIES_ENABLER.init({
 
 ----------
 
-[here]:https://raw.githubusercontent.com/nicholasruggeri/cookies-enabler/master/cookies-enabler.min.js
+[here]:https://github.com/nicholasruggeri/cookies-enabler/archive/master.zip
