@@ -34,7 +34,7 @@ Cookies-enabler.js is a easy-to-use **pure Javascript** solution for preventivel
 
 For ```iframes```, move the ```src``` in ```data-ce-src``` and add the class ```"ce-iframe"```
 ```
-<iframe class="ce-iframe" data-ce-src="https://player.vimeo.com/video/1084537" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+<iframe class="ce-iframe" data-ce-src="https://player.vimeo.com/video/1084537" width="500" height="281">
 ```
 
 3 - Initiate the plugin
