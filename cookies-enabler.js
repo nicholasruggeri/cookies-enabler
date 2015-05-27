@@ -4,7 +4,8 @@
 window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var defaults = {
-            scriptClass: document.getElementsByClassName('ce-script'),
+            scriptClass: 'ce-script',
+            iframesClass: 'ce-iframe',
             eventScroll: false,
             bannerHTML: 'This website uses cookies.<a href="#" class="ce-trigger">Enable Cookies</a>',
             cookie: {
@@ -37,10 +38,12 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         if (getCookie() == 'Y') {
 
             getScripts();
+            getIframes();
 
         } else {
 
             createBanner();
+            hideIframes();
 
             if (opts.eventScroll === true) {
                 window.addEventListener('scroll', enableCookies);
@@ -62,6 +65,8 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
             setCookie();
             getScripts();
+            getIframes();
+
             domElmts.banner[0].style.display = 'none';
 
             window.removeEventListener('scroll', enableCookies);
@@ -115,24 +120,59 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         }
     }
 
+    var hideIframes = function(){
+
+        var iframes = document.getElementsByClassName( opts.iframesClass ),
+            n = iframes.length,
+            src, iframe;
+
+        for( i = 0; i < n; i++ ){
+
+            iframe = iframes[i];
+            iframe.style.display = 'none';
+
+        }
+
+    }
+
+    var getIframes = function(){
+
+        var iframes = document.getElementsByClassName( opts.iframesClass ),
+            n = iframes.length,
+            src, iframe;
+
+        for( i = 0; i < n; i++ ){
+
+            iframe = iframes[i];
+
+            src = iframe.attributes[ 'data-ce-src' ].value;
+            iframe.src = src;
+            iframe.style.display = 'block';
+
+        }
+
+    }
+
     var getScripts = function(){
 
-        var n = opts.scriptClass.length,
+        var scripts = document.getElementsByClassName( '.' + opts.scriptClass ),
+            n = scripts.length,
             documentFragment = document.createDocumentFragment(),
-            i, y, s, attrib;
+            i, y, s, attrib, el;
 
         for (i = 0; i < n; i++){
+
             s = document.createElement('script');
             s.type = 'text/javascript';
-            for (y = 0; y < opts.scriptClass[i].attributes.length; y++) {
-                attrib = opts.scriptClass[i].attributes[y];
+            for (y = 0; y < scripts[i].attributes.length; y++) {
+                attrib = scripts[i].attributes[y];
                 if (attrib.specified) {
                     if ((attrib.name != 'type') && (attrib.name != 'class')){
                         s.setAttribute(attrib.name, attrib.value);
                     }
                 }
             }
-            s.innerHTML = opts.scriptClass[i].innerHTML;
+            s.innerHTML = scripts[i].innerHTML;
             documentFragment.appendChild(s);
         }
 

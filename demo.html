@@ -31,11 +31,24 @@
             padding: .6em 1em;
             display: inline-block;
         }
+
+        .ce-iframe{
+
+        }
     </style>
 </head>
 <body>
+
+    <iframe class="ce-iframe" data-ce-src="https://player.vimeo.com/video/1084537" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+        
+    </iframe>
+
+    <iframe width="560" height="315" class="ce-iframe" data-ce-src="https://www.youtube.com/embed/ZSn3Tvc7jQU" frameborder="0" allowfullscreen></iframe>
+
     <div id="fb-root"></div>
     <script type="text/plain" class="ce-script">
+
+        console.log('facebook initializing');
         // FB Demo
         (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -47,6 +60,9 @@
     </script>
     <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
     <script type="text/plain" class="ce-script">
+
+        console.log('ga initializing');
+
         // GA Demo
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-XXXXX-X']);
