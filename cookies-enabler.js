@@ -336,6 +336,10 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         }
 
+        return{
+            get: get
+        }
+
     })();
 
 
