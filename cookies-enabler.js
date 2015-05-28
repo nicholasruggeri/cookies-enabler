@@ -205,7 +205,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var getScripts = function(){
 
-        var scripts = document.getElementsByClassName( '.' + opts.scriptClass ),
+        var scripts = document.getElementsByClassName( opts.scriptClass ),
             n = scripts.length,
             documentFragment = document.createDocumentFragment(),
             i, y, s, attrib, el;
