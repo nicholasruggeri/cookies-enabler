@@ -10,18 +10,22 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
     var defaults = {
             scriptClass: 'ce-script',
             iframeClass: 'ce-iframe',
-            eventScroll: false,
-            scrollOffset: 100,
-            bannerHTML: 'This website uses cookies.<a href="#" class="ce-accept">Enable Cookies</a>',
-            cookie: {
-                name: 'ce-consent',
-                duration: '365'
-            },
-            preventIframes: false,
             acceptClass: 'ce-accept',
             dismissClass: 'ce-dismiss',
-            bannerClass: 'ce-banner'
-
+            bannerClass: 'ce-banner',
+            bannerHTML: '<p>This website uses cookies. '
+                        +'<a href="#" class="ce-accept">'
+                        +'Enable Cookies'
+                        +'</a>'
+                        +'</p>',
+            eventScroll: true,
+            scrollOffset: 200,
+            clickOutside: false,
+            cookie: {
+                name: 'ce-cookie',
+                duration: 365
+            },
+            preventIframes: true
         },
         opts, domElmts;
 
@@ -58,16 +62,22 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             dismiss_l = dismiss.length;
 
         if (opts.eventScroll === true) {
-
-                window.addEventListener('load', function()
+            window.addEventListener('load', function()
+            {
+                var start_Y = window.pageYOffset;
+                window.addEventListener('scroll', function()
                 {
-                    var start_Y = window.pageYOffset;
-                    window.addEventListener('scroll', function()
-                    {
-                        if (Math.abs(window.pageYOffset - start_Y) > opts.scrollOffset) enableCookies();
-                    });
+                    if (Math.abs(window.pageYOffset - start_Y) > opts.scrollOffset) enableCookies();
                 });
+            });
+        }
 
+        if (opts.clickOutside === true) {
+            document.addEventListener("click",function(e){
+                if(e.target != domElmts.banner[0]) {
+                    enableCookies();
+                }
+            });
         }
 
         for (i = 0; i < accept_l; i++) {
