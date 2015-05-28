@@ -116,9 +116,18 @@
             clickOutside: false,
             cookieName: 'ce-cookie',
             cookieDuration: '365',
-            iframesPrevent: true,
             iframesPlaceholder: true,
-            iframesPlaceholderClass: 'ce-iframe-placeholder'
+            iframesPlaceholderClass: 'ce-iframe-placeholder',
+            onEnable: function(){
+
+                console.log('enable callback');
+
+            },
+            onDismiss: function(){
+
+                console.log('dismiss callback');
+
+            }
         });
     </script>
 </body>

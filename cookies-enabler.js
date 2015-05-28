@@ -13,6 +13,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         acceptClass: 'ce-accept',
         dismissClass: 'ce-dismiss',
         bannerClass: 'ce-banner',
+
         bannerHTML:
 
             document.getElementById('ce-banner-html') !== null ?
@@ -28,9 +29,10 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         eventScroll: true,
         scrollOffset: 200,
         clickOutside: false,
+
         cookieName: 'ce-cookie',
         cookieDuration: '365',
-        iframesPrevent: false,
+
         iframesPlaceholder: true,
         iframesPlaceholderHTML:
 
@@ -42,7 +44,10 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                     +'<a href="#" class="ce-accept">Enable Cookies</a>'
                 +'</p>',
 
-        iframesPlaceholderClass: 'ce-iframe-placeholder'
+        iframesPlaceholderClass: 'ce-iframe-placeholder',
+
+        onEnable: '',
+        onDismiss: ''
     },
     opts, domElmts, start_Y;
 
@@ -158,6 +163,8 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
             window.removeEventListener('scroll', handleScroll );
 
+            if( typeof opts.onEnable === "function" ) opts.onEnable();
+
         }
 
     }, 250, false);
@@ -183,6 +190,8 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         function dismiss(){
 
             domElmts.banner[0].style.display = 'none';
+
+            if( typeof opts.onDismiss === "function" ) opts.onDismiss();
 
         }
 
