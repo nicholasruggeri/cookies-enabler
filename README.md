@@ -66,6 +66,7 @@ COOKIES_ENABLER.init({
                 +'</p>',                            // Default HTML banner
     eventScroll: false,                             // Default false
     scrollOffset: 100,                              // Default 100
+    clickOutside: false,                            // Default false
     cookie: {
         name: 'ce-cookie',                          // default 'ce-cookie'
         duration: 365                               // Default 365
