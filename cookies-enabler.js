@@ -58,8 +58,6 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             dismiss_l = dismiss.length;
 
         if (opts.eventScroll === true) {
-            
-            if (opts.eventScroll === true) {
 
                 window.addEventListener('load', function()
                 {
@@ -69,8 +67,6 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                         if (Math.abs(window.pageYOffset - start_Y) > opts.scrollOffset) enableCookies();
                     });
                 });
-
-            }
 
         }
 
