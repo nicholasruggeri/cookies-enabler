@@ -11,6 +11,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             scriptClass: 'ce-script',
             iframeClass: 'ce-iframe',
             eventScroll: false,
+            scrollOffset: 100,
             bannerHTML: 'This website uses cookies.<a href="#" class="ce-accept">Enable Cookies</a>',
             cookie: {
                 name: 'ce-consent',
@@ -57,8 +58,19 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             dismiss_l = dismiss.length;
 
         if (opts.eventScroll === true) {
+            
+            if (opts.eventScroll === true) {
 
-            window.addEventListener('scroll', enableCookies());
+                window.addEventListener('load', function()
+                {
+                    var start_Y = window.pageYOffset;
+                    window.addEventListener('scroll', function()
+                    {
+                        if (Math.abs(window.pageYOffset - start_Y) > opts.scrollOffset) enableCookies();
+                    });
+                });
+
+            }
 
         }
 
