@@ -9,7 +9,14 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: arial;
+
         }
+
+        p{
+           margin-bottom: 1em;
+        }
+
         .ce-banner{
             position: fixed;
             bottom: 1em;
@@ -19,18 +26,23 @@
             padding: 1em;
             color: #232323;
             font-size: 1em;
-            font-family: arial;
         }
-        .ce-banner p{
-           margin-bottom: 1em;
-        }
-        .ce-banner .ce-accept{
+
+        .ce-accept{
             background-color: #333;
             color: #fff;
             text-decoration: none;
             padding: .6em 1em;
             display: inline-block;
         }
+
+        .ce-iframe-placeholder{
+            padding: 1em;
+
+            background-color: #eee;
+            margin: 1em;
+        }
+
     </style>
 </head>
 <body style="height: 10000px">
@@ -38,6 +50,30 @@
     <iframe class="ce-iframe" data-ce-src="https://player.vimeo.com/video/1084537" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
     <iframe width="560" height="315" class="ce-iframe" data-ce-src="https://www.youtube.com/embed/ZSn3Tvc7jQU" frameborder="0" allowfullscreen></iframe>
+
+    <script id="ce-banner-html" type="text/plain">
+
+        <p>
+
+            This websites uses cookies to give you the <i>best</i> possible experience. 
+
+        </p>
+            
+        <a href="#" class="ce-accept">Enable Cookies</a> or <a href="#">Read More</a>
+
+    </script>
+
+    <script id="ce-iframePlaceholder-html" type="text/html">
+
+        <p>
+
+            This content is not available without cookies. 
+
+        </p>
+
+        <a href="#" class="ce-accept">Enable Cookies</a> or <a href="#">Read More</a>
+
+    </script>
 
     <div id="fb-root"></div>
     <script type="text/plain" class="ce-script">
@@ -75,19 +111,14 @@
             acceptClass: 'ce-accept',
             dismissClass: 'ce-dismiss',
             bannerClass: 'ce-banner',
-            bannerHTML: '<p>This website uses cookies. '
-                        +'<a href="#" class="ce-accept">'
-                        +'Enable Cookies'
-                        +'</a>'
-                        +'</p>',
             eventScroll: true,
             scrollOffset: 200,
             clickOutside: false,
-            cookie: {
-                name: 'ce-cookie',
-                duration: 365
-            },
-            preventIframes: true
+            cookieName: 'ce-cookie',
+            cookieDuration: '365',
+            iframesPrevent: true,
+            iframesPlaceholder: true,
+            iframesPlaceholderClass: 'ce-iframe-placeholder'
         });
     </script>
 </body>
