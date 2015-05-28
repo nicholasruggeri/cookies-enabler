@@ -8,26 +8,26 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
     'use strict';
 
     var defaults = {
-            scriptClass: 'ce-script',
-            iframeClass: 'ce-iframe',
-            acceptClass: 'ce-accept',
-            dismissClass: 'ce-dismiss',
-            bannerClass: 'ce-banner',
-            bannerHTML: '<p>This website uses cookies. '
-                        +'<a href="#" class="ce-accept">'
-                        +'Enable Cookies'
-                        +'</a>'
-                        +'</p>',
-            eventScroll: true,
-            scrollOffset: 200,
-            clickOutside: false,
-            cookie: {
-                name: 'ce-cookie',
-                duration: 365
-            },
-            preventIframes: true
+        scriptClass: 'ce-script',
+        iframeClass: 'ce-iframe',
+        acceptClass: 'ce-accept',
+        dismissClass: 'ce-dismiss',
+        bannerClass: 'ce-banner',
+        bannerHTML: '<p>This website uses cookies. '
+                    +'<a href="#" class="ce-accept">'
+                    +'Enable Cookies'
+                    +'</a>'
+                    +'</p>',
+        eventScroll: true,
+        scrollOffset: 200,
+        clickOutside: false,
+        cookie: {
+            name: 'ce-cookie',
+            duration: 365
         },
-        opts, domElmts;
+        preventIframes: true
+    },
+    opts, domElmts;
 
     function _extend(){
         var i, key;
