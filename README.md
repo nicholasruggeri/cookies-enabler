@@ -60,7 +60,7 @@ COOKIES_ENABLER.init({
     dismissClass: 'ce-dismiss',                     // Default 'ce-dismiss'
     bannerClass: 'ce-banner',                       // Default 'ce-banner'
     bannerHTML: '<p>This website uses cookies. '
-                +'<a href="#" class="ce-trigger">'
+                +'<a href="#" class="ce-accept">'
                 +'Enable Cookies'
                 +'</a>'
                 +'</p>',                            // Default HTML banner
