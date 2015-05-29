@@ -60,8 +60,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             dismiss_l = dismiss.length;
 
         if (opts.eventScroll === true) {
-            window.addEventListener('load', function()
-            {
+            window.addEventListener('load', function() {
                 var start_Y = window.pageYOffset;
                 window.addEventListener('scroll', function()
                 {
