@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
   </head>
-  <body>
+  <body style="height:2000px">
     <div class="wrapper">
       <header>
         <h1>Cookies Enabler JS</h1>
@@ -66,7 +66,6 @@
     </script>
 
     <!-- Templates -->
-
     <script id="ce-banner-html" type="text/plain">
       <p>This websites uses cookies to give you the <i>best</i> possible experience.
       <a href="#" class="ce-accept">Enable Cookies</a> <a href="#">Read More</a>
@@ -78,37 +77,15 @@
       <a href="#" class="ce-accept">Enable Cookies</a>  <a href="#">Read More</a></p>
     </script>
 
-
     <!-- Load the script -->
     <script src="../cookies-enabler.js"></script>
-
-
 
     <!-- Init the script -->
     <script>
         COOKIES_ENABLER.init({
-            scriptClass: 'ce-script',
-            iframeClass: 'ce-iframe',
-            acceptClass: 'ce-accept',
-            dismissClass: 'ce-dismiss',
-            bannerClass: 'ce-banner',
-            eventScroll: false,
-            scrollOffset: 0,
-            clickOutside: false,
-            cookieName: 'ce-cookie',
-            cookieDuration: '365',
-            iframesPlaceholder: true,
-            iframesPlaceholderClass: 'ce-iframe-placeholder',
-            onEnable: function(){
-                console.log('enable callback');
-            },
-            onDismiss: function(){
-                console.log('dismiss callback');
-            }
+          clickOutside: true
         });
     </script>
-
-
 
   </body>
 </html>
