@@ -11,7 +11,14 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         acceptClass: 'ce-accept',
         dismissClass: 'ce-dismiss',
         bannerClass: 'ce-banner',
-        bannerHTML: '<p>This website uses cookies. '
+
+        bannerHTML:
+
+            document.getElementById('ce-banner-html') !== null ?
+
+                document.getElementById('ce-banner-html').innerHTML :
+
+                '<p>This website uses cookies. '
                     +'<a href="#" class="ce-accept">'
                     +'Enable Cookies'
                     +'</a>'
@@ -19,21 +26,36 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         eventScroll: false,
         scrollOffset: 200,
         clickOutside: false,
-        cookie: {
-            name: 'ce-cookie',
-            duration: 365
-        },
-        preventIframes: false
-    },
-    opts, domElmts;
+        cookieName: 'ce-cookie',
+        cookieDuration: '365',
 
-    function _extend(){
+        iframesPlaceholder: true,
+        iframesPlaceholderHTML:
+
+            document.getElementById('ce-iframePlaceholder-html') !== null ?
+
+                document.getElementById('ce-iframePlaceholder-html').innerHTML :
+
+                '<p>To view this content you need to'
+                    +'<a href="#" class="ce-accept">Enable Cookies</a>'
+                +'</p>',
+
+        iframesPlaceholderClass: 'ce-iframe-placeholder',
+
+        onEnable: '',
+        onDismiss: ''
+    },
+    opts, domElmts, start_Y;
+
+    function _extend() {
+
         var i, key;
         for(i=1; i<arguments.length; i++)
             for(key in arguments[i])
                 if(arguments[i].hasOwnProperty(key))
                     arguments[0][key] = arguments[i][key];
         return arguments[0];
+
     };
 
     function _debounce(func, wait, immediate) {
@@ -51,7 +73,13 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         };
     };
 
-    var bindUI = function(){
+    var handleScroll = function() {
+
+        if (Math.abs( window.pageYOffset - start_Y ) > opts.scrollOffset) enableCookies();
+
+    };
+
+    var bindUI = function() {
 
         var i,
             accept = domElmts.accept,
@@ -59,21 +87,20 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             dismiss = domElmts.dismiss,
             dismiss_l = dismiss.length;
 
-        if (opts.eventScroll === true) {
-            window.addEventListener('load', function() {
-                var start_Y = window.pageYOffset;
-                window.addEventListener('scroll', function()
-                {
-                    if (Math.abs(window.pageYOffset - start_Y) > opts.scrollOffset) enableCookies();
-                });
+        if (opts.eventScroll) {
+            window.addEventListener('load', function(){
+
+                start_Y = window.pageYOffset;
+                window.addEventListener('scroll', handleScroll );
+
             });
         }
 
-        if (opts.clickOutside === true) {
-            document.addEventListener("click",function(e){
-                if(e.target != domElmts.banner[0]) {
-                    enableCookies();
-                }
+        if (opts.clickOutside) {
+            document.addEventListener("click", function(e){
+
+                if(e.target != domElmts.banner[0]) enableCookies();
+
             });
         }
 
@@ -90,34 +117,35 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
             dismiss[i].addEventListener("click", function (ev) {
                 ev.preventDefault();
-                dismissBanner();
+                banner.dismiss();
             } );
 
         }
 
     };
 
-    var init = function (options) {
+    var init = function(options) {
 
         opts = _extend( {}, defaults, options );
 
-        if (getCookie() == 'Y') {
+        if (cookie.get() == 'Y') {
 
-            getScripts();
+            scripts.get();
 
-            if( opts.preventIframes ) getIframes();
+            iframes.get();
 
         } else {
 
-            createBanner();
-            if( opts.preventIframes ) hideIframes();
+            banner.create();
+
+            iframes.hide();
 
             bindUI();
 
         }
     };
 
-    var enableCookies = _debounce(function(event){
+    var enableCookies = _debounce(function(event) {
 
         if( typeof event != "undefined" && event.type === 'click' ){
 
@@ -125,135 +153,211 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         }
 
-        if (getCookie() != 'Y') {
+        if (cookie.get() != 'Y') {
 
-            setCookie();
-            getScripts();
-            if( opts.preventIframes ) getIframes();
+            cookie.set();
+            scripts.get();
 
-            dismissBanner();
+            iframes.get();
+            iframes.removePlaceholders();
 
-            window.removeEventListener('scroll', enableCookies);
+            banner.dismiss();
+
+            window.removeEventListener('scroll', handleScroll );
+
+            if( typeof opts.onEnable === "function" ) opts.onEnable();
 
         }
 
     }, 250, false);
 
-    var createBanner = function(){
+    var banner = (function() {
 
-        var el = '<div class="'+ opts.bannerClass +'">'
-                + opts.bannerHTML
-                +'</div>';
+        function create() {
 
-        document.body.insertAdjacentHTML('beforeend', el);
+            var el = '<div class="'+ opts.bannerClass +'">'
+                    + opts.bannerHTML
+                    +'</div>';
 
-        domElmts = {
-            accept:  document.getElementsByClassName(opts.acceptClass),
-            banner: document.getElementsByClassName(opts.bannerClass),
-            dismiss: document.getElementsByClassName(opts.dismissClass)
-        }
+            document.body.insertAdjacentHTML('beforeend', el);
 
-    };
-
-    var dismissBanner = function(){
-
-        domElmts.banner[0].style.display = 'none';
-
-    };
-
-    var setCookie = function(){
-
-        var value = "Y",
-            date, expires;
-
-        if (opts.cookie.duration) {
-            date = new Date();
-            date.setTime(date.getTime()+( opts.cookie.duration*24*60*60*1000));
-            expires = "; expires="+date.toGMTString();
-        } else {
-            expires = "";
-        }
-        document.cookie = opts.cookie.name +"="+ value+expires +"; path=/";
-    };
-
-    var getCookie = function(){
-
-        var cookies = document.cookie.split(";"),
-            i, x, y;
-
-        for (i = 0; i < cookies.length; i++){
-            x = cookies[i].substr(0,cookies[i].indexOf("="));
-            y = cookies[i].substr(cookies[i].indexOf("=")+1);
-            x = x.replace(/^\s+|\s+$/g,"");
-            if (x == opts.cookie.name) {
-                return unescape(y);
+            domElmts = {
+                accept:  document.getElementsByClassName(opts.acceptClass),
+                banner: document.getElementsByClassName(opts.bannerClass),
+                dismiss: document.getElementsByClassName(opts.dismissClass)
             }
-        }
-    };
-
-    var hideIframes = function(){
-
-        var iframes = document.getElementsByClassName( opts.iframeClass ),
-            n = iframes.length,
-            src, iframe, i;
-
-        for( i = 0; i < n; i++ ){
-
-            iframe = iframes[i];
-            iframe.style.display = 'none';
 
         }
 
-    };
+        function dismiss(){
 
-    var getIframes = function(){
+            domElmts.banner[0].style.display = 'none';
 
-        var iframes = document.getElementsByClassName( opts.iframeClass ),
-            n = iframes.length,
-            src, iframe, i;
-
-        for( i = 0; i < n; i++ ){
-
-            iframe = iframes[i];
-
-            src = iframe.attributes[ 'data-ce-src' ].value;
-            iframe.src = src;
-            iframe.style.display = 'block';
+            if( typeof opts.onDismiss === "function" ) opts.onDismiss();
 
         }
 
-    };
+        return{
 
-    var getScripts = function(){
+            create: create,
+            dismiss: dismiss
 
-        var scripts = document.getElementsByClassName( opts.scriptClass ),
-            n = scripts.length,
-            documentFragment = document.createDocumentFragment(),
-            i, y, s, attrib, el;
+        }
 
-        for (i = 0; i < n; i++){
+    })();
 
-            s = document.createElement('script');
-            s.type = 'text/javascript';
-            for (y = 0; y < scripts[i].attributes.length; y++) {
-                attrib = scripts[i].attributes[y];
-                if (attrib.specified) {
-                    if ((attrib.name != 'type') && (attrib.name != 'class')){
-                        s.setAttribute(attrib.name, attrib.value);
-                    }
+    var cookie = (function() {
+
+        function set(){
+
+            var value = "Y",
+                date, expires;
+
+            if (opts.cookieDuration) {
+                date = new Date();
+                date.setTime(date.getTime()+( opts.cookieDuration*24*60*60*1000));
+                expires = "; expires="+date.toGMTString();
+            } else {
+                expires = "";
+            }
+            document.cookie = opts.cookieName +"="+ value+expires +"; path=/";
+        }
+
+        function get(){
+
+            var cookies = document.cookie.split(";"),
+                l = cookies.length,
+                i, x, y;
+
+            for (i = 0; i < l; i++){
+                x = cookies[i].substr(0,cookies[i].indexOf("="));
+                y = cookies[i].substr(cookies[i].indexOf("=")+1);
+                x = x.replace(/^\s+|\s+$/g,"");
+                if (x == opts.cookieName) {
+                    return unescape(y);
                 }
             }
-            s.innerHTML = scripts[i].innerHTML;
-            documentFragment.appendChild(s);
+
         }
 
-        document.body.appendChild(documentFragment);
-    };
+        return{
+            set: set,
+            get: get
+        }
+
+    })();
+
+    var iframes = (function() {
+
+        function makePlaceholder(iframe) {
+
+            var placeholderElement = document.createElement('div');
+
+            placeholderElement.classList.add( opts.iframesPlaceholderClass );
+
+            placeholderElement.innerHTML = opts.iframesPlaceholderHTML;
+
+            iframe.parentNode.insertBefore( placeholderElement, iframe );
+
+        }
+
+        function removePlaceholders() {
+
+            var iframePlaceholders = document.getElementsByClassName( opts.iframesPlaceholderClass ),
+                n = iframePlaceholders.length,
+                i;
+
+            for( i = n - 1; i >= 0; i-- ){
+
+                iframePlaceholders[i].remove();
+
+            }
+
+        }
+
+        function hide() {
+
+            var iframes = document.getElementsByClassName( opts.iframeClass ),
+                n = iframes.length,
+                src, iframe, i;
+
+            for( i = 0; i < n; i++ ){
+
+                iframe = iframes[i];
+                iframe.style.display = 'none';
+
+                if( opts.iframesPlaceholder ) makePlaceholder( iframe );
+
+            }
+
+        }
+
+        function get() {
+
+            var iframes = document.getElementsByClassName( opts.iframeClass ),
+                n = iframes.length,
+                src, iframe, i;
+
+            for( i = 0; i < n; i++ ){
+
+                iframe = iframes[i];
+
+                src = iframe.attributes[ 'data-ce-src' ].value;
+                iframe.src = src;
+                iframe.style.display = 'block';
+
+            }
+
+        }
+
+        return{
+            hide: hide,
+            get: get,
+            removePlaceholders: removePlaceholders
+        }
+
+    })();
+
+    var scripts = (function() {
+
+        function get() {
+
+            var scripts = document.getElementsByClassName( opts.scriptClass ),
+                n = scripts.length,
+                documentFragment = document.createDocumentFragment(),
+                i, y, s, attrib, el;
+
+            for (i = 0; i < n; i++){
+
+                s = document.createElement('script');
+                s.type = 'text/javascript';
+                for (y = 0; y < scripts[i].attributes.length; y++) {
+                    attrib = scripts[i].attributes[y];
+                    if (attrib.specified) {
+                        if ((attrib.name != 'type') && (attrib.name != 'class')){
+                            s.setAttribute(attrib.name, attrib.value);
+                        }
+                    }
+                }
+                s.innerHTML = scripts[i].innerHTML;
+                documentFragment.appendChild(s);
+            }
+
+            document.body.appendChild(documentFragment);
+
+        }
+
+        return{
+            get: get
+        }
+
+    })();
+
 
     return {
         init: init,
         enableCookies: enableCookies,
-        dismissBanner: dismissBanner
+        dismissBanner: banner.dismiss
     };
 
 }());

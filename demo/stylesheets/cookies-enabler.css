@@ -1,0 +1,43 @@
+ *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+p{
+    margin-bottom: 1em;
+}
+
+.ce-banner{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #dedede;
+    padding: 1em;
+    color: #232323;
+    font-size: 1em;
+}
+
+.ce-accept, .ce-dismiss{
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    padding: .6em 1em;
+    display: inline-block;
+    margin-left: 1em;
+}
+
+.ce-iframe-placeholder{
+    padding: 1em;
+    background-color: #eee;
+    margin: 1em 0;
+}
+
+.ce-iframe-placeholder p, .ce-banner p{
+    margin: 0;
+}
+
+iframe{
+    width: 100%;
+}
