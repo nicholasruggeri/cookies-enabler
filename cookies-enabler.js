@@ -18,7 +18,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                     +'Enable Cookies'
                     +'</a>'
                     +'</p>',
-        eventScroll: true,
+        eventScroll: false,
         scrollOffset: 200,
         clickOutside: false,
         cookie: {
