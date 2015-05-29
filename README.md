@@ -55,10 +55,10 @@ COOKIES_ENABLER.init();
 ```
 COOKIES_ENABLER.init({
     scriptClass: 'ce-script',                       // Default 'ce-script'
-    iframeClass: 'ce-iframe',                       // Default 'ce-script'
-    acceptClass: 'ce-accept',                       // Default 'ce-script'
-    dismissClass: 'ce-dismiss',                     // Default 'ce-script'
-    bannerClass: 'ce-banner',                       // Default 'ce-script'
+    iframeClass: 'ce-iframe',                       // Default 'ce-iframe'
+    acceptClass: 'ce-accept',                       // Default 'ce-accept'
+    dismissClass: 'ce-dismiss',                     // Default 'ce-dismiss'
+    bannerClass: 'ce-banner',                       // Default 'ce-banner'
     bannerHTML: '<p>This website uses cookies. '
                 +'<a href="#" class="ce-trigger">'
                 +'Enable Cookies'
