@@ -80,13 +80,19 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         for (i = 0; i < accept_l; i++) {
 
-            accept[i].addEventListener("click", enableCookies );
+            accept[i].addEventListener("click", function(ev) {
+                ev.preventDefault();
+                enableCookies(ev);
+            } );
 
         }
 
         for (i = 0; i < dismiss_l; i++) {
 
-            dismiss[i].addEventListener("click", dismissBanner );
+            dismiss[i].addEventListener("click", function (ev) {
+                ev.preventDefault();
+                dismissBanner();
+            } );
 
         }
 
