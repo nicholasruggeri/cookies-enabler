@@ -23,7 +23,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             name: 'ce-cookie',
             duration: 365
         },
-        preventIframes: true
+        preventIframes: false
     },
     opts, domElmts;
 
