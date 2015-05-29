@@ -65,9 +65,24 @@
         })();
     </script>
 
+    <!-- Templates -->
+
+    <script id="ce-banner-html" type="text/plain">
+      <p>This websites uses cookies to give you the <i>best</i> possible experience.
+      <a href="#" class="ce-accept">Enable Cookies</a> <a href="#">Read More</a>
+      <a href="#" class="ce-dismiss">Dismiss Cookies</a></p>
+    </script>
+
+    <script id="ce-iframePlaceholder-html" type="text/plain">
+      <p>This content is not available without cookies.
+      <a href="#" class="ce-accept">Enable Cookies</a>  <a href="#">Read More</a></p>
+    </script>
+
 
     <!-- Load the script -->
     <script src="../cookies-enabler.js"></script>
+
+
 
     <!-- Init the script -->
     <script>
@@ -78,7 +93,7 @@
             dismissClass: 'ce-dismiss',
             bannerClass: 'ce-banner',
             eventScroll: false,
-            scrollOffset: 200,
+            scrollOffset: 0,
             clickOutside: false,
             cookieName: 'ce-cookie',
             cookieDuration: '365',
@@ -93,18 +108,7 @@
         });
     </script>
 
-    <!-- Templates -->
 
-    <script id="ce-banner-html" type="text/plain">
-      <p>This websites uses cookies to give you the <i>best</i> possible experience.</p>
-      <a href="#" class="ce-accept">Enable Cookies</a> or <a href="#">Read More</a>
-      <a href="#" class="ce-dismiss">Dismiss Cookies</a>
-    </script>
-
-    <script id="ce-iframePlaceholder-html" type="text/html">
-      <p>This content is not available without cookies.</p>
-      <a href="#" class="ce-accept">Enable Cookies</a> or <a href="#">Read More</a>
-    </script>
 
   </body>
 </html>
