@@ -19,7 +19,7 @@ p{
     font-size: 1em;
 }
 
-.ce-accept{
+.ce-accept, .ce-dismiss{
     background-color: #333;
     color: #fff;
     text-decoration: none;
