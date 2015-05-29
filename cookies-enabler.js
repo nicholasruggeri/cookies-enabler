@@ -4,9 +4,7 @@
 // https://github.com/gsimone
 
 window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
-
     'use strict';
-
     var defaults = {
         scriptClass: 'ce-script',
         iframeClass: 'ce-iframe',
