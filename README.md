@@ -50,29 +50,27 @@ COOKIES_ENABLER.init();
 
 --------
 
-####  Options
+####  Default Options
 
 ```
-COOKIES_ENABLER.init({
-    scriptClass: 'ce-script',                       // Default 'ce-script'
-    iframeClass: 'ce-iframe',                       // Default 'ce-script'
-    acceptClass: 'ce-accept',                       // Default 'ce-script'
-    dismissClass: 'ce-dismiss',                     // Default 'ce-script'
-    bannerClass: 'ce-banner',                       // Default 'ce-script'
-    bannerHTML: '<p>This website uses cookies. '
-                +'<a href="#" class="ce-trigger">'
-                +'Enable Cookies'
-                +'</a>'
-                +'</p>',                            // Default HTML banner
-    eventScroll: false,                             // Default false
-    scrollOffset: 100,                              // Default 100
-    clickOutside: false,                            // Default false
-    cookie: {
-        name: 'ce-cookie',                          // default 'ce-cookie'
-        duration: 365                               // Default 365
-    },
-    preventIframes: false                           // Defaul false
-});
+scriptClass: 'ce-script',
+iframeClass: 'ce-iframe',
+acceptClass: 'ce-accept',
+dismissClass: 'ce-dismiss',
+bannerClass: 'ce-banner',
+bannerHTML: '<p>This website uses cookies. '
+            +'<a href="#" class="ce-accept">'
+            +'Enable Cookies'
+            +'</a>'
+            +'</p>',
+eventScroll: false,
+scrollOffset: 200,
+clickOutside: false,
+cookie: {
+    name: 'ce-cookie',
+    duration: 365
+},
+preventIframes: false
 ```
 
 

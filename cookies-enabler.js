@@ -4,9 +4,7 @@
 // https://github.com/gsimone
 
 window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
-
     'use strict';
-
     var defaults = {
         scriptClass: 'ce-script',
         iframeClass: 'ce-iframe',
@@ -24,12 +22,10 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                     +'<a href="#" class="ce-accept">'
                     +'Enable Cookies'
                     +'</a>'
-                +'</p>',
-
-        eventScroll: true,
+                    +'</p>',
+        eventScroll: false,
         scrollOffset: 200,
         clickOutside: false,
-
         cookieName: 'ce-cookie',
         cookieDuration: '365',
 
@@ -110,13 +106,19 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         for (i = 0; i < accept_l; i++) {
 
-            accept[i].addEventListener("click", enableCookies );
+            accept[i].addEventListener("click", function(ev) {
+                ev.preventDefault();
+                enableCookies(ev);
+            } );
 
         }
 
         for (i = 0; i < dismiss_l; i++) {
 
-            dismiss[i].addEventListener("click", banner.dismiss );
+            dismiss[i].addEventListener("click", function (ev) {
+                ev.preventDefault();
+                dismissBanner();
+            } );
 
         }
 
