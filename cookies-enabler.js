@@ -100,7 +100,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             document.addEventListener("click", function(e){
 
                 if(e.target != domElmts.banner[0]) enableCookies();
-            
+
             });
         }
 
@@ -117,7 +117,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
             dismiss[i].addEventListener("click", function (ev) {
                 ev.preventDefault();
-                dismissBanner();
+                banner.dismiss();
             } );
 
         }
@@ -263,7 +263,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         function removePlaceholders() {
 
-            var iframePlaceholders = document.getElementsByClassName( opts.iframesPlaceholderClass ), 
+            var iframePlaceholders = document.getElementsByClassName( opts.iframesPlaceholderClass ),
                 n = iframePlaceholders.length,
                 i;
 
