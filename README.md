@@ -58,19 +58,32 @@ iframeClass: 'ce-iframe',
 acceptClass: 'ce-accept',
 dismissClass: 'ce-dismiss',
 bannerClass: 'ce-banner',
-bannerHTML: '<p>This website uses cookies. '
-            +'<a href="#" class="ce-accept">'
+
+bannerHTML:
+    '<p>This website uses cookies. '
+        +'<a href="#" class="ce-accept">'
             +'Enable Cookies'
-            +'</a>'
-            +'</p>',
+        +'</a>'
+    +'</p>',
+
 eventScroll: false,
 scrollOffset: 200,
+
 clickOutside: false,
-cookie: {
-    name: 'ce-cookie',
-    duration: 365
-},
-preventIframes: false
+
+cookieName: 'ce-cookie',
+cookieDuration: '365',
+
+iframesPlaceholder: true,
+iframesPlaceholderHTML:
+    '<p>To view this content you need to'
+        +'<a href="#" class="ce-accept">Enable Cookies</a>'
+    +'</p>',
+iframesPlaceholderClass: 'ce-iframe-placeholder',
+
+// Callbacks
+onEnable: '',
+onDismiss: ''
 ```
 
 
