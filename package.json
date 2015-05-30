@@ -1,6 +1,6 @@
 {
   "name": "cookies-enabler",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Cookies-enabler.js is a easy-to-use pure Javascript solution for preventively blocking third-party cookies installed by js and comply with the EU cookie law.",
   "author": "Nicholas Ruggeri, Gianmarco Simone",
   "dependencies": {
