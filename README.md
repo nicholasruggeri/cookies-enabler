@@ -5,7 +5,7 @@ cookies-enabler.js
 Cookies-enabler.js is a easy-to-use pure Javascript solution for preventively blocking third-party cookies installed by js and comply with the EU cookie law.
 
 ### Download
-Click [here] or ```bower install cookie-enabler```
+Click [here] or ```bower install cookies-enabler```
 
 ####  How to install
 
