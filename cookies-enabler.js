@@ -4,14 +4,19 @@
 // https://github.com/gsimone
 
 window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
-    'use strict';
+
+    'use strict'
+
     var defaults = {
+
         scriptClass: 'ce-script',
         iframeClass: 'ce-iframe',
-        acceptClass: 'ce-accept',
-        dismissClass: 'ce-dismiss',
-        bannerClass: 'ce-banner',
 
+        acceptClass: 'ce-accept',
+        disableClass: 'ce-disable',
+        dismissClass: 'ce-dismiss',
+
+        bannerClass: 'ce-banner',
         bannerHTML:
 
             document.getElementById('ce-banner-html') !== null ?
@@ -43,7 +48,9 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         iframesPlaceholderClass: 'ce-iframe-placeholder',
 
         onEnable: '',
-        onDismiss: ''
+        onDismiss: '',
+        onDisable: ''
+
     },
     opts, domElmts, start_Y;
 
@@ -56,7 +63,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                     arguments[0][key] = arguments[i][key];
         return arguments[0];
 
-    };
+    }
 
     function _debounce(func, wait, immediate) {
         var timeout;
@@ -71,7 +78,23 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             timeout = setTimeout(later, wait);
             if (callNow) func.apply(context, args);
         };
-    };
+    }
+
+    function _getClosestParentWithClass(el, parentClass ) {
+
+        do {
+            if ( _hasClass( el, parentClass ) ) {
+                // tag name is found! let's return it. :)
+                return el;
+            }
+        } while (el = el.parentNode);
+
+        return null;
+    }
+
+    function _hasClass( el, cls) {
+        return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+    }
 
     var handleScroll = function() {
 
@@ -81,9 +104,18 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var bindUI = function() {
 
+        domElmts = {
+            accept:  document.getElementsByClassName(opts.acceptClass),
+            disable: document.getElementsByClassName( opts.disableClass ),
+            banner: document.getElementsByClassName(opts.bannerClass),
+            dismiss: document.getElementsByClassName(opts.dismissClass)
+        }
+
         var i,
             accept = domElmts.accept,
             accept_l = accept.length,
+            disable = domElmts.disable,
+            disable_l = disable.length,
             dismiss = domElmts.dismiss,
             dismiss_l = dismiss.length;
 
@@ -97,9 +129,23 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         }
 
         if (opts.clickOutside) {
+
             document.addEventListener("click", function(e){
 
-                if(e.target != domElmts.banner[0]) enableCookies();
+                var element = e.target;
+
+                // ignore the click if it is inside of any of the elements created by this plugin
+                if(
+                    _getClosestParentWithClass( element, opts.iframesPlaceholderClass ) ||
+                    _getClosestParentWithClass( element, opts.disableClass ) ||
+                    _getClosestParentWithClass( element, opts.bannerClass ) ||
+                    _getClosestParentWithClass( element, opts.dismissClass ) ||
+                    _getClosestParentWithClass( element, opts.disableClass )
+                ){
+                    return false;
+                }
+
+                enableCookies();  
 
             });
         }
@@ -109,6 +155,15 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             accept[i].addEventListener("click", function(ev) {
                 ev.preventDefault();
                 enableCookies(ev);
+            } );
+
+        }
+
+        for (i = 0; i < disable_l; i++) {
+
+            disable[i].addEventListener("click", function(ev) {
+                ev.preventDefault();
+                disableCookies(ev);
             } );
 
         }
@@ -135,12 +190,17 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             scripts.get();
             iframes.get();
 
+        } else if( cookie.get() == 'N' ){
+
+            if( typeof opts.onDisable === "function" ) opts.onDisable();
+
+            iframes.hide();
+            bindUI();
+
         } else {
 
             banner.create();
-
             iframes.hide();
-
             bindUI();
 
         }
@@ -163,7 +223,6 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             iframes.removePlaceholders();
 
             banner.dismiss();
-
             window.removeEventListener('scroll', handleScroll );
 
             if( typeof opts.onEnable === "function" ) opts.onEnable();
@@ -171,6 +230,27 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         }
 
     }, 250, false);
+
+    var disableCookies = function(event){
+
+        if( typeof event != "undefined" && event.type === 'click' ){
+
+            event.preventDefault();
+
+        }
+
+        if( cookie.get() != 'N' ){
+
+            cookie.set('N');
+
+            banner.dismiss();
+            window.removeEventListener('scroll', handleScroll );
+
+            if( typeof opts.onDisable === "function" ) opts.onDisable();
+
+        }
+
+    }
 
     var banner = (function() {
 
@@ -181,12 +261,6 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                     +'</div>';
 
             document.body.insertAdjacentHTML('beforeend', el);
-
-            domElmts = {
-                accept:  document.getElementsByClassName(opts.acceptClass),
-                banner: document.getElementsByClassName(opts.bannerClass),
-                dismiss: document.getElementsByClassName(opts.dismissClass)
-            }
 
         }
 
@@ -209,9 +283,9 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var cookie = (function() {
 
-        function set(){
+        function set( val ){
 
-            var value = "Y",
+            var value = typeof val !== "undefined" ? val : "Y",
                 date, expires;
 
             if (opts.cookieDuration) {

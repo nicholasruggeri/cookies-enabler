@@ -19,13 +19,41 @@ p{
     font-size: 1em;
 }
 
-.ce-accept, .ce-dismiss{
+.ce-accept, .ce-dismiss, .ce-disable{
     background-color: #333;
     color: #fff;
     text-decoration: none;
     padding: .6em 1em;
     display: inline-block;
-    margin-left: 1em;
+    margin: 0 .5em;
+}
+
+.ce-disable{
+    background-color: #aaa;
+}
+
+.ce-accept:hover,
+.ce-dismiss:hover,
+.ce-disable:hover{
+    background-color: #666;
+    color: white;
+}
+
+.ce-accept{
+    background-color: #48ea6b;
+    color: #111;
+}
+
+.ce-dismiss{
+    position: absolute;
+
+    font-size: .8em;
+
+    right: 1em;
+    top: 1em;
+
+    background-color: #ccc;
+    color: #333;
 }
 
 .ce-iframe-placeholder{
@@ -34,7 +62,7 @@ p{
     margin: 1em 0;
 }
 
-.ce-iframe-placeholder p, .ce-banner p{
+.ce-iframe-placeholder p{
     margin: 0;
 }
 
