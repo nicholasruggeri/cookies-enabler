@@ -79,7 +79,7 @@ You can customize the placeholder HTML by creating a script tag with the ID ```c
  You can also set the option  as a  ```string``` containing the HTML:
 
 ```
-iFramePlaceholderHTML: '<p>To view this content you need to <a href="#" class="ce-accept">Enable Cookies</a></p>'
+bannerHTML: '<p>This website uses cookies. <a href="#" class="ce-accept">Enable Cookies</a></p>'
 ```
 
 #### Blocking Cookies from Script Tags
@@ -124,7 +124,7 @@ You can customize the placeholder HTML by creating a script tag with the ID ```c
 ```
 <script id="ce-iframePlaceholder-html" type="text/plain">
       <p>This content is not available without cookies.
-          <a href="#" class="ce-accept">Enable Cookies</a> 
+          <a href="#" class="ce-accept">Enable Cookies</a>
           <a href="#">Read More</a>
       </p>
 </script>
@@ -162,9 +162,9 @@ clickOutside: true  // default false
 
 Adding the ```ce-accept``` class to any element will make it act as an accept button, enabling the cookies on click.
 
-Adding the ```ce-dismiss``` class to any element will make it act as a dismiss button, removing the notice banner on click. 
+Adding the ```ce-dismiss``` class to any element will make it act as a dismiss button, removing the notice banner on click.
 
-Adding the ```ce-disable``` class to any element will make it act as a disable button, removing the notice banner and disabling cookies on click. 
+Adding the ```ce-disable``` class to any element will make it act as a disable button, removing the notice banner and disabling cookies on click.
 
 #### Callbacks
 
