@@ -27,10 +27,12 @@ COOKIES_ENABLER.init( options );
 ```
 scriptClass: 'ce-script',
 iframeClass: 'ce-iframe',
+
 acceptClass: 'ce-accept',
 dismissClass: 'ce-dismiss',
-bannerClass: 'ce-banner',
+disableClass: 'ce-disable',
 
+bannerClass: 'ce-banner',
 bannerHTML:
     '<p>This website uses cookies. '
         +'<a href="#" class="ce-accept">'
@@ -55,7 +57,8 @@ iframesPlaceholderClass: 'ce-iframe-placeholder',
 
 // Callbacks
 onEnable: '',
-onDismiss: ''
+onDismiss: '',
+onDisable: ''
 ```
 #### Notice Banner
 
@@ -63,9 +66,13 @@ You can customize the placeholder HTML by creating a script tag with the ID ```c
 
 ```
     <script id="ce-banner-html" type="text/plain">
-      <p>This websites uses cookies to give you the <i>best</i> possible experience.
-      <a href="#" class="ce-accept">Enable Cookies</a> <a href="#">Read More</a>
-      <a href="#" class="ce-dismiss">Dismiss Notice</a></p>
+      <p>
+        This websites uses cookies to give you the <i>best</i> possible experience.
+      </p>
+      <p>
+        <a href="#" class="ce-accept">Enable Cookies</a> <a href="#" class="ce-disable">Disable Cookies</a> or <a href="#">Read More</a>
+        <a href="#" class="ce-dismiss">X</a>
+      </p>
     </script>
 ```
 
@@ -145,7 +152,7 @@ scrollOffset: 200
 
 ##### Click on any element of the page
 
-This option will enable cookies when the user clicks on any element on the page that doesn't belong to the notice banner.
+This option will enable cookies when the user clicks on any element on the page that doesn't belong to the notice banner or other script-created elements.
 
 ```
 clickOutside: true  // default false
@@ -156,6 +163,8 @@ clickOutside: true  // default false
 Adding the ```ce-accept``` class to any element will make it act as an accept button, enabling the cookies on click.
 
 Adding the ```ce-dismiss``` class to any element will make it act as a dismiss button, removing the notice banner on click. 
+
+Adding the ```ce-disable``` class to any element will make it act as a disable button, removing the notice banner and disabling cookies on click. 
 
 #### Callbacks
 
@@ -171,47 +180,13 @@ onDismiss: function(){
 
     console.log('the banner has been dismissed');
 
+},
+onDisable: function(){
+
+    console.log('cookies have been disabled');
+
 }
 ```
-
---------
-
-####  Default Options
-
-```
-scriptClass: 'ce-script',
-iframeClass: 'ce-iframe',
-acceptClass: 'ce-accept',
-dismissClass: 'ce-dismiss',
-bannerClass: 'ce-banner',
-
-bannerHTML:
-    '<p>This website uses cookies. '
-        +'<a href="#" class="ce-accept">'
-            +'Enable Cookies'
-        +'</a>'
-    +'</p>',
-
-eventScroll: false,
-scrollOffset: 200,
-
-clickOutside: false,
-
-cookieName: 'ce-cookie',
-cookieDuration: '365',
-
-iframesPlaceholder: true,
-iframesPlaceholderHTML:
-    '<p>To view this content you need to'
-        +'<a href="#" class="ce-accept">Enable Cookies</a>'
-    +'</p>',
-iframesPlaceholderClass: 'ce-iframe-placeholder',
-
-// Callbacks
-onEnable: '',
-onDismiss: ''
-```
-
 
 ----------
 
