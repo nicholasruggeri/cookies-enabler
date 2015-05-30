@@ -130,8 +130,9 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         if (cookie.get() == 'Y') {
 
-            scripts.get();
+            if( typeof opts.onEnable === "function" ) opts.onEnable();
 
+            scripts.get();
             iframes.get();
 
         } else {
