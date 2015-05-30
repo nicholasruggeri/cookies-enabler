@@ -188,6 +188,11 @@ onDisable: function(){
 }
 ```
 
+#### Donations
+
+If you found this script useful, [buy us a beer]!
+
 ----------
 
 [here]:https://github.com/nicholasruggeri/cookies-enabler/archive/master.zip
+[buy us a beer]:https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=A5FJ9N7B87WLE
