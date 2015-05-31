@@ -1,14 +1,26 @@
 {
   "name": "cookies-enabler",
-  "version": "0.1.2",
   "main": [
     "cookies-enabler.js"
   ],
+  "version": "0.1.2",
+  "homepage": "https://github.com/nicholasruggeri/cookies-enabler",
+  "author": {
+    "name": "Nicholas Ruggeri",
+    "email": "ruggerinicholas@gmail.com"
+  },
+  "description": "Cookies-enabler.js is a easy-to-use pure Javascript solution for preventively blocking third-party cookies installed by js and comply with the EU cookie law.",
+  "keywords": [
+    "cookies",
+    "eu",
+    "law"
+  ],
+  "license": "MIT",
   "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
     "test",
-    ".*",
-    "*.json",
-    "*.md",
-    "*.txt"
+    "tests"
   ]
 }
