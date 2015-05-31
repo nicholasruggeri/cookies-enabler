@@ -9,7 +9,7 @@
     "name": "Nicholas Ruggeri",
     "email": "ruggerinicholas@gmail.com"
   },
-  "description": "Cookies-enabler.js is a easy-to-use pure Javascript solution for preventively blocking third-party cookies installed by js and comply with the EU cookie law.",
+  "description": "Cookies-enabler.js is a easy-to-use pure JS solution for preventively blocking third-party cookies and comply with the EU cookie law",
   "keywords": [
     "cookies",
     "eu",
