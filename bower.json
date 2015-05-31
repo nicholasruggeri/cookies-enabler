@@ -1,5 +1,14 @@
 {
-"name": "cookies-enabler",
-"version": "0.1.2",
-"main": "cookies-enabler.js"
+  "name": "cookies-enabler",
+  "version": "0.1.2",
+  "main": [
+    "cookies-enabler.js"
+  ],
+  "ignore": [
+    "test",
+    ".*",
+    "*.json",
+    "*.md",
+    "*.txt"
+  ]
 }
