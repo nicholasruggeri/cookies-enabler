@@ -93,7 +93,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
     }
 
     function _hasClass( el, cls) {
-        return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+        return (' ' + el.className + ' ').indexOf(' ' + cls + ' ') > -1;
     }
 
     var handleScroll = function() {
