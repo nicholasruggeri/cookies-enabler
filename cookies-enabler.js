@@ -329,7 +329,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             var placeholderElement = document.createElement('div');
 
             placeholderElement.className = opts.iframesPlaceholderClass;
-            
+
             placeholderElement.innerHTML = opts.iframesPlaceholderHTML;
 
             iframe.parentNode.insertBefore( placeholderElement, iframe );
@@ -404,18 +404,29 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
             for (i = 0; i < n; i++){
 
-                s = document.createElement('script');
-                s.type = 'text/javascript';
-                for (y = 0; y < scripts[i].attributes.length; y++) {
-                    attrib = scripts[i].attributes[y];
-                    if (attrib.specified) {
-                        if ((attrib.name != 'type') && (attrib.name != 'class')){
-                            s.setAttribute(attrib.name, attrib.value);
+                if( scripts[i].hasAttribute('data-ce-src') ){
+
+                    if( typeof postscribe === "undefined" ){ 
+                        postscribe(scripts[i].parentNode, '<script src="' + scripts[i].getAttribute("data-ce-src") + '"></script>'); 
+                    }
+
+                } else {
+
+                    s = document.createElement('script');
+                    s.type = 'text/javascript';
+                    for (y = 0; y < scripts[i].attributes.length; y++) {
+                        attrib = scripts[i].attributes[y];
+                        if (attrib.specified) {
+                            if ((attrib.name != 'type') && (attrib.name != 'class')){
+                                s.setAttribute(attrib.name, attrib.value);
+                            }
                         }
                     }
+                    s.innerHTML = scripts[i].innerHTML;
+                    documentFragment.appendChild(s);
+
                 }
-                s.innerHTML = scripts[i].innerHTML;
-                documentFragment.appendChild(s);
+                
             }
 
             document.body.appendChild(documentFragment);
