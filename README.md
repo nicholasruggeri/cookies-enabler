@@ -188,6 +188,27 @@ onDisable: function(){
 }
 ```
 
+#### Problematic Scripts
+
+Some scripts use ```document.write```, that can't be executed asynchronously. 
+We added a workaround using [Postscribe]. Change the ```src``` to ```data-ce-src``` and add the class ```ce-script```. Don't forget to download and include [Postscribe].
+
+```
+
+<script data-ce-src="http://pagead2.googlesyndication.com/pagead/show_ads.js" class="ce-script"></script>
+
+<script scr="postscribe.js"></script>
+<script src="cookies-enabler.js"></script>
+
+<script>
+  
+  COOKIES_ENABLER.init();
+
+</script>
+
+```
+
+
 #### Donations
 
 If you found this script useful, [buy us a beer]!
@@ -196,3 +217,4 @@ If you found this script useful, [buy us a beer]!
 
 [here]:https://github.com/nicholasruggeri/cookies-enabler/archive/master.zip
 [buy us a beer]:https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=A5FJ9N7B87WLE
+[Postscribe]:https://github.com/krux/postscribe
