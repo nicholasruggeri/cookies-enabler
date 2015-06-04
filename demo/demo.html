@@ -27,8 +27,8 @@
 
       <section>
         <h2>Iframes disabled</h2>
-        <iframe class="ce-iframe" data-ce-src="https://player.vimeo.com/video/1084537" width="500" height="281" frameborder="0" allowfullscreen></iframe>
-        <iframe width="560" height="315" class="ce-iframe" data-ce-src="https://www.youtube.com/embed/ZSn3Tvc7jQU" frameborder="0" allowfullscreen></iframe>
+        <iframe class="ce-iframe" data-ce-group="social" data-ce-src="https://player.vimeo.com/video/1084537" width="500" height="281" frameborder="0" allowfullscreen></iframe>
+        <iframe width="560" height="315" data-ce-group="analytics" class="ce-iframe" data-ce-src="https://www.youtube.com/embed/ZSn3Tvc7jQU" frameborder="0" allowfullscreen></iframe>
       </section>
 
       <footer>
@@ -39,7 +39,7 @@
     </div>
 
 
-    <script type="text/plain" class="ce-script">
+    <script type="text/plain" data-ce-group="social" class="ce-script">
         console.log('facebook initializing');
         // FB Demo
         (function(d, s, id) {
@@ -51,7 +51,7 @@
         }(document, 'script', 'facebook-jssdk'));
     </script>
     <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-    <script type="text/plain" class="ce-script">
+    <script type="text/plain" data-ce-group="analytics" class="ce-script">
         console.log('ga initializing');
         // GA Demo
         var _gaq = _gaq || [];
@@ -78,6 +78,16 @@
       <a href="#" class="ce-accept">Enable Cookies</a> or <a href="#">Read More</a></p>
     </script>
 
+    <script id="ce-group-html" type="text/plain">
+
+      <h3>{{groupName}}</h3>
+
+      <p>{{groupDescription}}</p>
+
+      <input type="radio" name="{{id}}"> <label for="{{id}}">Enable</label>
+
+    </script>
+
 
     <!-- Load the script -->
     <script src="../cookies-enabler.js"></script>
@@ -94,7 +104,7 @@
             scrollOffset: 0,
             clickOutside: false,
             cookieName: 'ce-cookie',
-            cookieDuration: '365',
+            cookieDuration: 1,
             iframesPlaceholder: true,
             iframesPlaceholderClass: 'ce-iframe-placeholder',
             onEnable: function(){
@@ -102,6 +112,21 @@
             },
             onDismiss: function(){
                 console.log('dismiss callback');
+            },
+            groups: {
+                'analytics': {
+
+                    name: 'Analytics',
+                    description: 'Cookies used by Google Analytics to track traffic anonymously',
+                    enabled: true
+
+                },
+                'social': {
+
+                    name: 'Social Network',
+                    description: 'Cookies used by Facebook, Twitter, Youtube and the like'
+
+                } 
             }
         });
     </script>

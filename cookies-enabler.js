@@ -5,7 +5,7 @@
 
 window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
-    'use strict'
+    'use strict';
 
     var defaults = {
 
@@ -23,11 +23,12 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
                 document.getElementById('ce-banner-html').innerHTML :
 
-                '<p>This website uses cookies. '
-                    +'<a href="#" class="ce-accept">'
-                    +'Enable Cookies'
-                    +'</a>'
-                    +'</p>',
+                    '<p>This website uses cookies. '
+                        + '<a href="#" class="ce-accept">'
+                        + 'Enable Cookies'
+                        + '</a>'
+                    + '</p>',
+
         eventScroll: false,
         scrollOffset: 200,
         clickOutside: false,
@@ -41,23 +42,23 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
                 document.getElementById('ce-iframePlaceholder-html').innerHTML :
 
-                '<p>To view this content you need to'
-                    +'<a href="#" class="ce-accept">Enable Cookies</a>'
-                +'</p>',
+                    '<p>To view this content you need to'
+                        + '<a href="#" class="ce-accept">Enable Cookies</a>'
+                    + '</p>',
 
         iframesPlaceholderClass: 'ce-iframe-placeholder',
 
         onEnable: '',
         onDismiss: '',
-        onDisable: ''
+        onDisable: '',
+        groups: ''
 
-    },
-    opts, domElmts, start_Y;
+    }, opts, domElmts, start_Y;
 
     function _extend() {
 
         var i, key;
-        for(i=1; i<arguments.length; i++)
+        for (i=1; i<arguments.length; i++)
             for(key in arguments[i])
                 if(arguments[i].hasOwnProperty(key))
                     arguments[0][key] = arguments[i][key];
@@ -96,6 +97,18 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         return (' ' + el.className + ' ').indexOf(' ' + cls + ' ') > -1;
     }
 
+    function _each( object , fn ){
+
+        var l, i;
+
+        l = object.length;
+
+        for (i = 0; i < l; i++) {
+            fn( i, object[ i ] );
+        }
+
+    }
+
     var handleScroll = function() {
 
         if (Math.abs( window.pageYOffset - start_Y ) > opts.scrollOffset) enableCookies();
@@ -110,14 +123,6 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             banner: document.getElementsByClassName(opts.bannerClass),
             dismiss: document.getElementsByClassName(opts.dismissClass)
         }
-
-        var i,
-            accept = domElmts.accept,
-            accept_l = accept.length,
-            disable = domElmts.disable,
-            disable_l = disable.length,
-            dismiss = domElmts.dismiss,
-            dismiss_l = dismiss.length;
 
         if (opts.eventScroll) {
             window.addEventListener('load', function(){
@@ -150,60 +155,35 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             });
         }
 
-        for (i = 0; i < accept_l; i++) {
+        groups.createGroupsHTML();
 
-            accept[i].addEventListener("click", function(ev) {
+        _each( domElmts.accept, function( i, accept ){
+
+            accept.addEventListener("click", function (ev) {
                 ev.preventDefault();
                 enableCookies(ev);
-            } );
+            });
 
-        }
+        });
 
-        for (i = 0; i < disable_l; i++) {
+        _each( domElmts.disable, function( i, disable ){
 
-            disable[i].addEventListener("click", function(ev) {
+            disable.addEventListener("click", function (ev) {
                 ev.preventDefault();
                 disableCookies(ev);
-            } );
+            });
 
-        }
+        });
 
-        for (i = 0; i < dismiss_l; i++) {
+        _each( domElmts.dismiss, function( i, dismiss ){
 
-            dismiss[i].addEventListener("click", function (ev) {
+            dismiss.addEventListener("click", function (ev) {
                 ev.preventDefault();
                 banner.dismiss();
-            } );
+            });
 
-        }
+        });
 
-    };
-
-    var init = function(options) {
-
-        opts = _extend( {}, defaults, options );
-
-        if (cookie.get() == 'Y') {
-
-            if( typeof opts.onEnable === "function" ) opts.onEnable();
-
-            scripts.get();
-            iframes.get();
-
-        } else if( cookie.get() == 'N' ){
-
-            if( typeof opts.onDisable === "function" ) opts.onDisable();
-
-            iframes.hide();
-            bindUI();
-
-        } else {
-
-            banner.create();
-            iframes.hide();
-            bindUI();
-
-        }
     };
 
     var enableCookies = _debounce(function(event) {
@@ -217,9 +197,12 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         if (cookie.get() != 'Y') {
 
             cookie.set();
-            scripts.get();
 
+            groups.enable();
+
+            scripts.get();
             iframes.get();
+
             iframes.removePlaceholders();
 
             banner.dismiss();
@@ -281,11 +264,138 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     })();
 
+    var groups = (function(){
+
+        function groupHTML( name, group ){
+
+            var checked = group.enabled ? 'checked' : '';
+
+            return '<input type="checkbox" '+ checked +' class="ce-checkbox" ID="ce-'+ name +'"> <label for="ce-'+ name +'">'+ group.name +'</label> <p>'+ group.description +'</p>';
+
+        }
+
+        function createGroupsHTML(){
+
+            var docFragment = document.createDocumentFragment(),
+                el = document.createElement('ul'),
+                groupEl, key, group;
+
+            docFragment.appendChild(el);
+
+            for ( key in opts.groups ) {
+
+                if ( opts.groups.hasOwnProperty( key )) {
+
+                    groupEl = document.createElement('li');
+                    groupEl.classList.add('ce-groups-control');
+
+                    group = opts.groups[key];
+
+                    groupEl.innerHTML = groupHTML( key, group );
+
+                    docFragment.appendChild( groupEl );
+
+                }
+
+            }
+
+            domElmts.banner[0].appendChild( docFragment );
+
+        }
+
+        function enable(  ){
+
+            var key, group;
+
+            for ( key in opts.groups ) {
+
+                if ( opts.groups.hasOwnProperty( key )) {
+
+                    group = opts.groups[key];
+
+                    group.enabled = true;
+
+                }
+
+            }
+
+            set( 'Y' );
+
+        }
+
+        function get(  ){
+
+            var key, group, prop;
+
+            for ( key in opts.groups ) {
+
+                if ( opts.groups.hasOwnProperty( key )) {
+
+                    group = opts.groups[key];
+
+                    if( cookie.get( key ) ){
+
+                        console.log('group is enabled');
+
+                    }
+
+                }
+
+            }
+
+            createGroupsHTML();
+
+        }
+
+        function set( value ){
+
+            var key, group, value = value;
+
+            for ( key in opts.groups ) {
+
+                if ( opts.groups.hasOwnProperty( key )) {
+
+                    group = opts.groups[key];
+
+                    if( group.enabled ){
+
+                        cookie.set( 'ce-' + key, value );
+
+                    } else {
+
+                        cookie.del( 'ce-' + key );
+
+                    }
+
+                    
+
+                }
+
+            }
+
+        }
+
+        return{
+            get: get,
+            set: set,
+            enable: enable,
+            createGroupsHTML: createGroupsHTML
+        }
+
+    })();
+
     var cookie = (function() {
 
-        function set( val ){
+        function del( name ){
 
-            var value = typeof val !== "undefined" ? val : "Y",
+            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+
+        }
+
+        function set(){
+
+            var cookieValue = arguments.length === 0 ? "Y" : arguments.length === 1 ? arguments[0] : arguments[1],
+                cookieName = arguments.length === 0 || arguments.length === 1 ? opts.cookieName : arguments[0],
                 date, expires;
 
             if (opts.cookieDuration) {
@@ -295,27 +405,37 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             } else {
                 expires = "";
             }
-            document.cookie = opts.cookieName +"="+ value+expires +"; path=/";
+
+            document.cookie = cookieName + "=" + cookieValue + expires + "; path=/";
         }
 
-        function get(){
+        function get( name ){
+
+            console.log('get cookie');
 
             var cookies = document.cookie.split(";"),
+                cookieName = name != null ? name : opts.cookieName,
                 l = cookies.length,
-                i, x, y;
+                i, cookie, x, y;
 
-            for (i = 0; i < l; i++){
-                x = cookies[i].substr(0,cookies[i].indexOf("="));
-                y = cookies[i].substr(cookies[i].indexOf("=")+1);
+            for ( i = 0; i < l; i++ ) {
+
+                cookie = cookies[i];
+
+                x = cookie.substr(0,cookie.indexOf("="));
+                y = cookie.substr(cookie.indexOf("=")+1);
+
                 x = x.replace(/^\s+|\s+$/g,"");
-                if (x == opts.cookieName) {
+
+                if ( x ==  cookieName ) {
                     return unescape(y);
                 }
-            }
+            };
 
         }
 
         return{
+            del: del,
             set: set,
             get: get
         }
@@ -324,7 +444,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var iframes = (function() {
 
-        function makePlaceholder(iframe) {
+        function makePlaceholder( iframe ) {
 
             var placeholderElement = document.createElement('div');
 
@@ -352,36 +472,39 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         function hide() {
 
-            var iframes = document.getElementsByClassName( opts.iframeClass ),
-                n = iframes.length,
-                src, iframe, i;
+            var iframes = document.getElementsByClassName( opts.iframeClass );
 
-            for( i = 0; i < n; i++ ){
+            _each( iframes, function(i, iframe){
 
-                iframe = iframes[i];
+                var iframeGroup = iframe.attributes['data-ce-group'].value;
+
                 iframe.style.display = 'none';
 
                 if( opts.iframesPlaceholder ) makePlaceholder( iframe );
 
-            }
+            });
 
         }
 
         function get() {
 
             var iframes = document.getElementsByClassName( opts.iframeClass ),
-                n = iframes.length,
-                src, iframe, i;
+                groups = opts.groups,
+                src, iframeGroup;
 
-            for( i = 0; i < n; i++ ){
-
-                iframe = iframes[i];
+            _each( iframes, function(i, iframe){
 
                 src = iframe.attributes[ 'data-ce-src' ].value;
-                iframe.src = src;
-                iframe.style.display = 'block';
+                iframeGroup = iframe.attributes['data-ce-group'].value;
 
-            }
+                if( groups[ iframeGroup ].enabled ){
+
+                    iframe.src = src;
+                    iframe.style.display = 'block';
+
+                }
+
+            });
 
         }
 
@@ -398,25 +521,37 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         function get() {
 
             var scripts = document.getElementsByClassName( opts.scriptClass ),
-                n = scripts.length,
-                documentFragment = document.createDocumentFragment(),
-                i, y, s, attrib, el;
+                documentFragment = document.createDocumentFragment();
 
-            for (i = 0; i < n; i++){
+            _each( scripts, function(i, script){
 
-                s = document.createElement('script');
+                var scriptGroup = script.attributes['data-ce-group'].value,
+                    s = document.createElement('script');
+
                 s.type = 'text/javascript';
-                for (y = 0; y < scripts[i].attributes.length; y++) {
-                    attrib = scripts[i].attributes[y];
-                    if (attrib.specified) {
-                        if ((attrib.name != 'type') && (attrib.name != 'class')){
+
+                /* check if the ce-group is enabled */
+                if( opts.groups[ scriptGroup ].enabled ){
+
+                    /* copy attributes to the new element */
+                    _each( script.attributes, function(i, attrib){
+
+                        if (
+                            attrib.specified && 
+                            attrib.name != 'type' && 
+                            attrib.name != 'class'
+                        ){
                             s.setAttribute(attrib.name, attrib.value);
                         }
-                    }
+
+                    });
+
+                    s.innerHTML = scripts[i].innerHTML;
+                    documentFragment.appendChild(s);
+
                 }
-                s.innerHTML = scripts[i].innerHTML;
-                documentFragment.appendChild(s);
-            }
+
+            });
 
             document.body.appendChild(documentFragment);
 
@@ -428,11 +563,43 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     })();
 
+    var init = function(options) {
+
+        var cookieStatus;
+
+        opts = _extend( {}, defaults, options );
+
+        cookieStatus = cookie.get();
+
+        // only if yes, the groups feature will be started
+        if ( cookieStatus == 'Y') {
+
+            if( typeof opts.onEnable === "function" ) opts.onEnable();
+
+            scripts.get();
+            iframes.get();
+
+        } else if( cookieStatus == 'N' ){
+
+            if( typeof opts.onDisable === "function" ) opts.onDisable();
+
+            iframes.hide();
+            bindUI();
+
+        } else {
+
+            banner.create();
+            iframes.hide();
+            bindUI();
+
+        }
+    };
 
     return {
         init: init,
         enableCookies: enableCookies,
-        dismissBanner: banner.dismiss
+        dismissBanner: banner.dismiss,
+        groups: groups
     };
 
 }());
