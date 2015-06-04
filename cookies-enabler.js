@@ -328,8 +328,8 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
             var placeholderElement = document.createElement('div');
 
-            placeholderElement.classList.add( opts.iframesPlaceholderClass );
-
+            placeholderElement.className = opts.iframesPlaceholderClass;
+            
             placeholderElement.innerHTML = opts.iframesPlaceholderHTML;
 
             iframe.parentNode.insertBefore( placeholderElement, iframe );
