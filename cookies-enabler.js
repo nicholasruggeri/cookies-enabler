@@ -17,6 +17,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         dismissClass: 'ce-dismiss',
 
         bannerClass: 'ce-banner',
+        bannerPosition: 'bottom',
         bannerHTML:
 
             document.getElementById('ce-banner-html') !== null ?
@@ -259,8 +260,8 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             var el = '<div class="'+ opts.bannerClass +'">'
                     + opts.bannerHTML
                     +'</div>';
-
-            document.body.insertAdjacentHTML('beforeend', el);
+            var position = (opts.bannerPosition === 'bottom') ? 'beforeend' : 'afterbegin';
+            document.body.insertAdjacentHTML(position, el);
 
         }
 
