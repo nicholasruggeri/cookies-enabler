@@ -57,8 +57,8 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
     function _extend() {
 
         var i, key;
-        for(i=1; i<arguments.length; i++)
-            for(key in arguments[i])
+        for (i=1; i<arguments.length; i++)
+            for (key in arguments[i])
                 if(arguments[i].hasOwnProperty(key))
                     arguments[0][key] = arguments[i][key];
         return arguments[0];
@@ -80,10 +80,10 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         };
     }
 
-    function _getClosestParentWithClass(el, parentClass ) {
+    function _getClosestParentWithClass(el, parentClass) {
 
         do {
-            if ( _hasClass( el, parentClass ) ) {
+            if (_hasClass(el, parentClass)) {
                 // tag name is found! let's return it. :)
                 return el;
             }
@@ -92,13 +92,13 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         return null;
     }
 
-    function _hasClass( el, cls) {
+    function _hasClass(el, cls) {
         return (' ' + el.className + ' ').indexOf(' ' + cls + ' ') > -1;
     }
 
     var handleScroll = function() {
 
-        if (Math.abs( window.pageYOffset - start_Y ) > opts.scrollOffset) enableCookies();
+        if (Math.abs(window.pageYOffset - start_Y) > opts.scrollOffset) enableCookies();
 
     };
 
@@ -106,7 +106,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         domElmts = {
             accept:  document.getElementsByClassName(opts.acceptClass),
-            disable: document.getElementsByClassName( opts.disableClass ),
+            disable: document.getElementsByClassName(opts.disableClass),
             banner: document.getElementsByClassName(opts.bannerClass),
             dismiss: document.getElementsByClassName(opts.dismissClass)
         }
@@ -123,7 +123,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             window.addEventListener('load', function(){
 
                 start_Y = window.pageYOffset;
-                window.addEventListener('scroll', handleScroll );
+                window.addEventListener('scroll', handleScroll);
 
             });
         }
@@ -136,16 +136,16 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
                 // ignore the click if it is inside of any of the elements created by this plugin
                 if(
-                    _getClosestParentWithClass( element, opts.iframesPlaceholderClass ) ||
-                    _getClosestParentWithClass( element, opts.disableClass ) ||
-                    _getClosestParentWithClass( element, opts.bannerClass ) ||
-                    _getClosestParentWithClass( element, opts.dismissClass ) ||
-                    _getClosestParentWithClass( element, opts.disableClass )
-                ){
+                    _getClosestParentWithClass(element, opts.iframesPlaceholderClass) ||
+                    _getClosestParentWithClass(element, opts.disableClass) ||
+                    _getClosestParentWithClass(element, opts.bannerClass) ||
+                    _getClosestParentWithClass(element, opts.dismissClass) ||
+                    _getClosestParentWithClass(element, opts.disableClass)
+               ){
                     return false;
                 }
 
-                enableCookies();  
+                enableCookies();
 
             });
         }
@@ -155,7 +155,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             accept[i].addEventListener("click", function(ev) {
                 ev.preventDefault();
                 enableCookies(ev);
-            } );
+            });
 
         }
 
@@ -164,7 +164,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             disable[i].addEventListener("click", function(ev) {
                 ev.preventDefault();
                 disableCookies(ev);
-            } );
+            });
 
         }
 
@@ -173,7 +173,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             dismiss[i].addEventListener("click", function (ev) {
                 ev.preventDefault();
                 banner.dismiss();
-            } );
+            });
 
         }
 
@@ -181,18 +181,18 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var init = function(options) {
 
-        opts = _extend( {}, defaults, options );
+        opts = _extend({}, defaults, options);
 
         if (cookie.get() == 'Y') {
 
-            if( typeof opts.onEnable === "function" ) opts.onEnable();
+            if (typeof opts.onEnable === "function") opts.onEnable();
 
             scripts.get();
             iframes.get();
 
-        } else if( cookie.get() == 'N' ){
+        } else if (cookie.get() == 'N'){
 
-            if( typeof opts.onDisable === "function" ) opts.onDisable();
+            if (typeof opts.onDisable === "function") opts.onDisable();
 
             iframes.hide();
             bindUI();
@@ -208,7 +208,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var enableCookies = _debounce(function(event) {
 
-        if( typeof event != "undefined" && event.type === 'click' ){
+        if (typeof event != "undefined" && event.type === 'click'){
 
             event.preventDefault();
 
@@ -223,9 +223,9 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             iframes.removePlaceholders();
 
             banner.dismiss();
-            window.removeEventListener('scroll', handleScroll );
+            window.removeEventListener('scroll', handleScroll);
 
-            if( typeof opts.onEnable === "function" ) opts.onEnable();
+            if (typeof opts.onEnable === "function") opts.onEnable();
 
         }
 
@@ -233,20 +233,20 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var disableCookies = function(event){
 
-        if( typeof event != "undefined" && event.type === 'click' ){
+        if (typeof event != "undefined" && event.type === 'click'){
 
             event.preventDefault();
 
         }
 
-        if( cookie.get() != 'N' ){
+        if (cookie.get() != 'N'){
 
             cookie.set('N');
 
             banner.dismiss();
-            window.removeEventListener('scroll', handleScroll );
+            window.removeEventListener('scroll', handleScroll);
 
-            if( typeof opts.onDisable === "function" ) opts.onDisable();
+            if (typeof opts.onDisable === "function") opts.onDisable();
 
         }
 
@@ -268,7 +268,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
             domElmts.banner[0].style.display = 'none';
 
-            if( typeof opts.onDismiss === "function" ) opts.onDismiss();
+            if (typeof opts.onDismiss === "function") opts.onDismiss();
 
         }
 
@@ -283,14 +283,14 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
     var cookie = (function() {
 
-        function set( val ){
+        function set(val){
 
             var value = typeof val !== "undefined" ? val : "Y",
                 date, expires;
 
             if (opts.cookieDuration) {
                 date = new Date();
-                date.setTime(date.getTime()+( opts.cookieDuration*24*60*60*1000));
+                date.setTime(date.getTime()+(opts.cookieDuration*24*60*60*1000));
                 expires = "; expires="+date.toGMTString();
             } else {
                 expires = "";
@@ -332,17 +332,17 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
             placeholderElement.innerHTML = opts.iframesPlaceholderHTML;
 
-            iframe.parentNode.insertBefore( placeholderElement, iframe );
+            iframe.parentNode.insertBefore(placeholderElement, iframe);
 
         }
 
         function removePlaceholders() {
 
-            var iframePlaceholders = document.getElementsByClassName( opts.iframesPlaceholderClass ),
+            var iframePlaceholders = document.getElementsByClassName(opts.iframesPlaceholderClass),
                 n = iframePlaceholders.length,
                 i;
 
-            for( i = n - 1; i >= 0; i-- ){
+            for (i = n - 1; i >= 0; i--){
 
                 iframePlaceholders[i].remove();
 
@@ -352,16 +352,16 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         function hide() {
 
-            var iframes = document.getElementsByClassName( opts.iframeClass ),
+            var iframes = document.getElementsByClassName(opts.iframeClass),
                 n = iframes.length,
                 src, iframe, i;
 
-            for( i = 0; i < n; i++ ){
+            for (i = 0; i < n; i++){
 
                 iframe = iframes[i];
                 iframe.style.display = 'none';
 
-                if( opts.iframesPlaceholder ) makePlaceholder( iframe );
+                if (opts.iframesPlaceholder) makePlaceholder(iframe);
 
             }
 
@@ -369,11 +369,11 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         function get() {
 
-            var iframes = document.getElementsByClassName( opts.iframeClass ),
+            var iframes = document.getElementsByClassName(opts.iframeClass),
                 n = iframes.length,
                 src, iframe, i;
 
-            for( i = 0; i < n; i++ ){
+            for (i = 0; i < n; i++){
 
                 iframe = iframes[i];
 
@@ -397,17 +397,17 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
         function get() {
 
-            var scripts = document.getElementsByClassName( opts.scriptClass ),
+            var scripts = document.getElementsByClassName(opts.scriptClass),
                 n = scripts.length,
                 documentFragment = document.createDocumentFragment(),
                 i, y, s, attrib, el;
 
             for (i = 0; i < n; i++){
 
-                if( scripts[i].hasAttribute('data-ce-src') ){
+                if (scripts[i].hasAttribute('data-ce-src')){
 
-                    if( typeof postscribe === "undefined" ){ 
-                        postscribe(scripts[i].parentNode, '<script src="' + scripts[i].getAttribute("data-ce-src") + '"></script>'); 
+                    if (typeof postscribe === "undefined"){
+                        postscribe(scripts[i].parentNode, '<script src="' + scripts[i].getAttribute("data-ce-src") + '"></script>');
                     }
 
                 } else {
@@ -426,7 +426,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                     documentFragment.appendChild(s);
 
                 }
-                
+
             }
 
             document.body.appendChild(documentFragment);
