@@ -34,7 +34,6 @@
       <footer>
         <p>This project is maintained by:<br>
          <a href="http://github.com/nicholasruggeri">Nicholas Ruggeri</a> and <a href="http://github.com/gsimone">Gianmarco Simone</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
 
@@ -87,22 +86,38 @@
         COOKIES_ENABLER.init({
             scriptClass: 'ce-script',
             iframeClass: 'ce-iframe',
+
             acceptClass: 'ce-accept',
             dismissClass: 'ce-dismiss',
+            disableClass: 'ce-disable',
+
             bannerClass: 'ce-banner',
+            bannerHTML:
+                '<p>This website uses cookies. '
+                    +'<a href="#" class="ce-accept">'
+                        +'Enable Cookies'
+                    +'</a>'
+                +'</p>',
+
             eventScroll: false,
-            scrollOffset: 0,
-            clickOutside: false,
+            scrollOffset: 200,
+
+            clickOutside: true,
+
             cookieName: 'ce-cookie',
             cookieDuration: '365',
+
             iframesPlaceholder: true,
+            iframesPlaceholderHTML:
+                '<p>To view this content you need to'
+                    +'<a href="#" class="ce-accept">Enable Cookies</a>'
+                +'</p>',
             iframesPlaceholderClass: 'ce-iframe-placeholder',
-            onEnable: function(){
-                console.log('enable callback');
-            },
-            onDismiss: function(){
-                console.log('dismiss callback');
-            }
+
+            // Callbacks
+            onEnable: '',
+            onDismiss: '',
+            onDisable: ''
         });
     </script>
 
