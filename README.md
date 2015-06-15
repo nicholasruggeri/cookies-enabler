@@ -102,22 +102,22 @@ Add the class ```"ce-script"``` and ```type="text/plain"``` to every script tag 
 </script>
 ```
 
-#### Blocking Cookies from iFrames
+#### Blocking Cookies from iFrames and img
 
-For ```iframes```, change the ```src``` attribute to ```data-ce-src``` and add the class ```"ce-iframe"```
+For ```iframes``` and ```img```, change the ```src``` attribute to ```data-ce-src``` and add the class ```"ce-iframe"```
 ```
 <iframe class="ce-iframe" data-ce-src="https://player.vimeo.com/video/1084537" width="500" height="281">
 ```
 
-##### iFrames Placeholder
+##### iFrames and img Placeholder
 
-You can enable placeholders for blocked iframes using the ```iframesPlaceholder``` option:
+You can enable placeholders for blocked iframes and img using the ```iframesPlaceholder``` option:
 
 ```
 iframesPlaceholder: true
 ```
 
-Doing so, a custom placeholder for blocked iframes will be inserted after the hidden ```iframe``` element.
+Doing so, a custom placeholder for blocked iframes and img will be inserted after the hidden ```iframe``` and ```img``` element.
 
 You can customize the placeholder HTML by creating a script tag with the ID ```ce-iframePlaceholder-html```.
 
