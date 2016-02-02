@@ -344,8 +344,8 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
             for (i = n - 1; i >= 0; i--){
 
-                iframePlaceholders[i].remove();
-
+                iframePlaceholders[i].parentNode.removeChild(iframePlaceholders[i]);
+                
             }
 
         }
