@@ -33,6 +33,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         clickOutside: false,
         cookieName: 'ce-cookie',
         cookieDuration: '365',
+        wildcardDomain: false,
 
         iframesPlaceholder: true,
         iframesPlaceholderHTML:
@@ -286,7 +287,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
         function set(val){
 
             var value = typeof val !== "undefined" ? val : "Y",
-                date, expires;
+                date, expires, host, domainParts, domain;
 
             if (opts.cookieDuration) {
                 date = new Date();
@@ -295,7 +296,27 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
             } else {
                 expires = "";
             }
-            document.cookie = opts.cookieName +"="+ value+expires +"; path=/";
+            
+            host = location.host;
+            // Means localhost or that the user does not want to enable cookies for all subdomains
+            if(host.split('.') === 1 || !opts.wildcardDomain) {
+                document.cookie = opts.cookieName +"="+ value+expires +"; path=/";
+            } else {
+                // We start by stying to set a cookie from a subdomain eg foo.bar.com -> .bar.com
+                // If that does not work we try to set it for the top domain instead 
+                domainParts = host.split('.');
+                domainParts.shift();
+                domain = '.' + domainParts.join('.');
+                document.cookie = opts.cookieName +"="+ value+expires +"; path=/; domain="+domain;
+                
+                // Check if we managed to set the cookie, if not we where on a top-domain
+                if( cookie.get() == null ) {
+                    domain = '.'+host;
+                    document.cookie = opts.cookieName +"="+ value+expires +"; path=/; domain="+domain;
+                }
+            }
+            
+            
         }
 
         function get(){
