@@ -297,7 +297,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                 expires = "";
             }
             
-            host = location.host;
+            host = location.hostname;
             // Means localhost or that the user does not want to enable cookies for all subdomains
             if(host.split('.') === 1 || !opts.wildcardDomain) {
                 document.cookie = opts.cookieName +"="+ value+expires +"; path=/";
@@ -307,6 +307,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
                 domainParts = host.split('.');
                 domainParts.shift();
                 domain = '.' + domainParts.join('.');
+                
                 document.cookie = opts.cookieName +"="+ value+expires +"; path=/; domain="+domain;
                 
                 // Check if we managed to set the cookie, if not we where on a top-domain
