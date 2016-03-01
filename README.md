@@ -47,6 +47,7 @@ clickOutside: false,
 
 cookieName: 'ce-cookie',
 cookieDuration: '365',
+wildcardDomain: false,
 
 iframesPlaceholder: true,
 iframesPlaceholderHTML:
@@ -187,6 +188,11 @@ onDisable: function(){
 
 }
 ```
+
+#### Subdomains
+
+You can enable this cookie to be saved across all your subdomains by enabling the ```wildcardDomain``` option.
+
 
 #### Problematic Scripts
 
