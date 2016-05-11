@@ -3,7 +3,7 @@
   "main": [
     "cookies-enabler.js"
   ],
-  "version": "0.1.3",
+  "version": "0.1.4",
   "homepage": "https://github.com/nicholasruggeri/cookies-enabler",
   "author": {
     "name": "Nicholas Ruggeri",
