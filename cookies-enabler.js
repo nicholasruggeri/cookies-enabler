@@ -428,7 +428,7 @@ window.COOKIES_ENABLER = window.COOKIES_ENABLER || (function () {
 
                 if (scripts[i].hasAttribute('data-ce-src')){
 
-                    if (typeof postscribe === "undefined"){
+                    if (typeof postscribe !== "undefined"){
                         postscribe(scripts[i].parentNode, '<script src="' + scripts[i].getAttribute("data-ce-src") + '"></script>');
                     }
 
