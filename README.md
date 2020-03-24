@@ -7,12 +7,23 @@ Cookies-enabler.js is a easy-to-use pure Javascript solution for preventively bl
 ### Download
 Click [here] or ```bower install cookies-enabler```
 
+Or if you're using npm
+```
+npm install cookies-enabler
+```
+
 ####  How to install
 
  1 - Load the script
 
 ```
 <script src="cookies-enabler.js"></script>
+```
+
+or alternatively using `require`
+
+```
+var cookiesEnabler = require('cookies-enabler');
 ```
 
 2 - Initiate the plugin
@@ -196,7 +207,7 @@ You can enable this cookie to be saved across all your subdomains by enabling th
 
 #### Problematic Scripts
 
-Some scripts use ```document.write```, that can't be executed asynchronously. 
+Some scripts use ```document.write```, that can't be executed asynchronously.
 We added a workaround using [Postscribe]. Change the ```src``` to ```data-ce-src``` and add the class ```ce-script```. Don't forget to download and include [Postscribe].
 
 ```
@@ -207,7 +218,7 @@ We added a workaround using [Postscribe]. Change the ```src``` to ```data-ce-src
 <script src="cookies-enabler.js"></script>
 
 <script>
-  
+
   COOKIES_ENABLER.init();
 
 </script>
